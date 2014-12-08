@@ -18,6 +18,7 @@
 
 namespace Eye4web\ZfcUser\Pm\Service;
 
+use Application\Entity\User;
 use Eye4web\ZfcUser\Pm\Mapper\PmMapperInterface;
 use Eye4web\ZfcUser\Pm\Entity\ConversationInterface;
 use Eye4web\ZfcUser\Pm\Entity\MessageInterface;
@@ -126,5 +127,14 @@ class PmService implements PmServiceInterface
     public function getLastReply(ConversationInterface $conversation)
     {
         return $this->pmMapper->getLastReply($conversation);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return ConversationInterface[]
+     */
+    public function getUnreadConversations(UserInterface $user)
+    {
+        return $this->pmMapper->getUnreadConversations($user);
     }
 }

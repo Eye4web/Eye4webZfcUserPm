@@ -80,4 +80,10 @@ interface PmServiceInterface
      * @return MessageInterface
      */
     public function getLastReply(ConversationInterface $conversation);
+
+    /**
+     * @param UserInterface $user
+     * @return ConversationInterface[]
+     */
+    public function getUnreadConversations(UserInterface $user);
 }

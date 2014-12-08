@@ -77,4 +77,13 @@ class ZfcUserPmHelper extends AbstractHelper
     {
         return $this->pmService->getLastReply($conversation);
     }
+
+    /**
+     * @param UserInterface $user
+     * @return ConversationInterface[]
+     */
+    public function getUnreadConversations(UserInterface $user)
+    {
+        return $this->pmService->getUnreadConversations($user);
+    }
 }
