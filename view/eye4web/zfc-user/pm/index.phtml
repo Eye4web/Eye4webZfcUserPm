@@ -1,0 +1,35 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th><?= $this->translate("Headline") ?></th>
+            <th><?= $this->translate("Participants") ?></th>
+            <th><?= $this->translate("Last reply") ?></th>
+
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($conversations as $conversation) { ?>
+        <tr>
+            <td><a href="<?= $this->url('eye4web/zfc-user/pm/read-conversation', ['conversationId' => $conversation->getId()]) ?>"><?= $conversation->getHeadline() ?></a></td>
+            <td>
+                <?php
+                $participants = $this->zfcUserPm()->getParticipants($conversation);
+                $names = [];
+                foreach ($participants as $participant) {
+                    $names[] = ($participant->getId() == $this->zfcUserIdentity()->getId()) ? $this->translate('You') : $this->ZfcUserDisplayName($participant);
+                }
+
+                echo implode(', ', $names);
+                ?>
+            </td>
+            <td>
+                <?php
+                $lastReply = $this->ZfcUserPm()->getLastReply($conversation);
+                $name = ($lastReply->getFrom() == $this->zfcUserIdentity()->getId()) ? $this->translate('You') : $this->ZfcUserDisplayName($this->ZfcUserPm()->getUser($lastReply->getFrom()));
+                echo $name . ' at ' . $lastReply->getDate()->format("H:i, d-m-y");
+                ?>
+            </td>
+        </tr>
+    <?php } ?>
+    </tbody>
+</table>

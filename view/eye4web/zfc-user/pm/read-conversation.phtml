@@ -1,0 +1,28 @@
+<?php
+
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('eye4web/zfc-user/pm/read-conversation', ['conversationId' => $this->conversation->getId()]));
+$form->setAttribute('method', 'post');
+
+echo '<h1>' . $this->conversation->getHeadline() . '</h1>';
+
+foreach ($this->messages as $message) {
+    ?>
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="pull-left panel-title"><?= $this->ZfcUserDisplayName($this->ZfcUserPm()->getUser($message->getFrom())) ?></h3>
+            <span class="pull-right"><?= $message->getDate()->format('H:i, d-m-y') ?></span>
+        </div>
+        <div class="panel-body">
+            <?= $message->getMessage(); ?>
+        </div>
+    </div>
+    <?php
+}
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('message'));
+echo $this->formRow($form->get('csrf'));
+echo $this->formRow($form->get('submit'));
+echo $this->form()->closeTag();
