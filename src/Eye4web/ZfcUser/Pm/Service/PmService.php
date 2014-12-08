@@ -106,7 +106,12 @@ class PmService implements PmServiceInterface
      */
     public function newConversation(array $data, UserInterface $user)
     {
-        return $this->pmMapper->newConversation($data, $user);
+        $conversation = $this->pmMapper->newConversation($data, $user);
+
+        // Mark it read for the sending user
+        $this->markRead($conversation, $user);
+
+        return $conversation;
     }
 
     /**
@@ -117,7 +122,13 @@ class PmService implements PmServiceInterface
      */
     public function newMessage(ConversationInterface $conversation, $message, UserInterface $user)
     {
-        return $this->pmMapper->newMessage($conversation, $message, $user);
+        $message = $this->pmMapper->newMessage($conversation, $message, $user);
+
+        $this->markUnread($conversation);
+        // Mark it read for the sending user
+        $this->markRead($conversation, $user);
+
+        return $message;
     }
 
     /**

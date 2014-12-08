@@ -174,10 +174,6 @@ class PmMapper implements PmMapperInterface
         $message->setConversation($conversation);
         $this->objectManager->persist($message);
 
-        $this->markUnread($conversation);
-        // Mark it read for the sending user
-        $this->markRead($conversation, $user);
-
         $this->objectManager->flush();
 
         return $message;
