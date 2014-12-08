@@ -145,7 +145,7 @@ class PmMapper implements PmMapperInterface
     /**
      * @param ConversationInterface $conversation
      */
-    private function markUnread(ConversationInterface $conversation)
+    public function markUnread(ConversationInterface $conversation)
     {
         $repository =  $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
         $receivers = $repository->findBy(['conversation' => $conversation->getId()]);

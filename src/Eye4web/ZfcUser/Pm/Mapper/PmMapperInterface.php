@@ -62,6 +62,11 @@ interface PmMapperInterface
 
     /**
      * @param ConversationInterface $conversation
+     */
+    public function markUnread(ConversationInterface $conversation);
+
+    /**
+     * @param ConversationInterface $conversation
      * @param UserInterface $user
      * @return bool
      */

@@ -89,6 +89,11 @@ interface PmServiceInterface
     public function getLastReply(ConversationInterface $conversation);
 
     /**
+     * @param ConversationInterface $conversation
+     */
+    public function markUnread(ConversationInterface $conversation);
+
+    /**
      * @param UserInterface $user
      * @return ConversationInterface[]
      */

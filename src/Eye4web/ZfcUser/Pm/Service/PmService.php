@@ -110,6 +110,14 @@ class PmService implements PmServiceInterface
     }
 
     /**
+     * @param ConversationInterface $conversation
+     */
+    public function markUnread(ConversationInterface $conversation)
+    {
+        $this->pmMapper->markUnread($conversation);
+    }
+
+    /**
      * @param array $data
      * @param UserInterface $user
      * @return ConversationInterface
