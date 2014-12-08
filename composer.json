@@ -1,9 +1,9 @@
 {
-    "name": "eye4web/eye4web-zfc-user-om",
-    "description": "Generic private message system for ZfcUser",
+    "name": "eye4web/eye4web-zfc-user-pm",
+    "description": "Private message system for ZfcUser",
     "license": "MIT",
     "keywords": [
-        "zfcuser",
+        "zfc-user",
         "zendframework",
         "module",
         "eye4web",
