@@ -79,6 +79,16 @@ class ZfcUserPmHelper extends AbstractHelper
     }
 
     /**
+     * @param ConversationInterface $conversation
+     * @param UserInterface $user
+     * @return bool
+     */
+    public function isUnread(ConversationInterface $conversation, UserInterface $user)
+    {
+        return $this->pmService->isUnread($conversation, $user);
+    }
+
+    /**
      * @param UserInterface $user
      * @return ConversationInterface[]
      */

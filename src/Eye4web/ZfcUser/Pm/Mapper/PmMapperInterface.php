@@ -61,6 +61,13 @@ interface PmMapperInterface
     public function getParticipants(ConversationInterface $conversation);
 
     /**
+     * @param ConversationInterface $conversation
+     * @param UserInterface $user
+     * @return bool
+     */
+    public function isUnread(ConversationInterface $conversation, UserInterface $user);
+
+    /**
      * @param array $data
      * @param UserInterface $user
      * @return ConversationInterface

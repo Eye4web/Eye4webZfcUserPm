@@ -180,6 +180,19 @@ class PmMapper implements PmMapperInterface
     }
 
     /**
+     * @param ConversationInterface $conversation
+     * @param UserInterface $user
+     * @return bool
+     */
+    public function isUnread(ConversationInterface $conversation, UserInterface $user)
+    {
+        $repository = $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
+        $conversationReceiver = $repository->findOneBy(['conversation' => $conversation->getId(), 'to' => $user->getId()]);
+
+        return $conversationReceiver->getUnread();
+    }
+
+    /**
      * @param array $data
      * @param UserInterface $user
      * @return ConversationInterface

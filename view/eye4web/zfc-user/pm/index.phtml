@@ -9,8 +9,11 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach($conversations as $conversation) { ?>
-        <tr>
+    <?php
+    foreach($conversations as $conversation) {
+        $unread = ($this->zfcUserPm()->isUnread($conversation, $this->ZfcUserIdentity())) ? 'warning' : '';
+        ?>
+        <tr class="<?= $unread; ?>">
             <td><a href="<?= $this->url('eye4web/zfc-user/pm/read-conversation', ['conversationId' => $conversation->getId()]) ?>"><?= $conversation->getHeadline() ?></a></td>
             <td>
                 <?php

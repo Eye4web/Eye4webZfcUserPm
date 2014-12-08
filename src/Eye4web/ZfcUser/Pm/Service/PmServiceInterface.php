@@ -49,6 +49,13 @@ interface PmServiceInterface
     public function getUsers();
 
     /**
+     * @param ConversationInterface $conversation
+     * @param UserInterface $user
+     * return bool
+     */
+    public function isUnread(ConversationInterface $conversation, UserInterface $user);
+
+    /**
      * @param string $conversationId
      * @return ConversationInterface
      */

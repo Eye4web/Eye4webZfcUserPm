@@ -100,6 +100,16 @@ class PmService implements PmServiceInterface
     }
 
     /**
+     * @param ConversationInterface $conversation
+     * @param UserInterface $user
+     * @return bool
+     */
+    public function isUnread(ConversationInterface $conversation, UserInterface $user)
+    {
+        return $this->pmMapper->isUnread($conversation, $user);
+    }
+
+    /**
      * @param array $data
      * @param UserInterface $user
      * @return ConversationInterface
