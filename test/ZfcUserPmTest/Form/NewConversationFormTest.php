@@ -28,8 +28,7 @@ class NewConversationFormTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Eye4web\ZfcUser\Pm\Form\NewConversationForm::has
-     * @covers Eye4web\ZfcUser\Pm\Form\NewConversationForm::has
+     * @covers Eye4web\ZfcUser\Pm\Form\NewConversationForm::getInputFilterSpecification
      */
     public function testHasInputFilter()
     {

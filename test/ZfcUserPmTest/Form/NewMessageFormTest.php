@@ -26,8 +26,7 @@ class NewMessageFormTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Eye4web\ZfcUser\Pm\Form\NewMessageForm::has
-     * @covers Eye4web\ZfcUser\Pm\Form\NewMessageForm::has
+     * @covers Eye4web\ZfcUser\Pm\Form\NewMessageForm::getInputFilterSpecification
      */
     public function testHasInputFilter()
     {
