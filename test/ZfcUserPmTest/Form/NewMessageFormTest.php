@@ -14,6 +14,10 @@ class NewMessageFormTest extends PHPUnit_Framework_TestCase
         $this->messageForm = new Form();
     }
 
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Form\NewMessageForm::__construct
+     * @covers Eye4web\ZfcUser\Pm\Form\NewMessageForm::__construct
+     */
     public function testHasElement()
     {
         $this->assertTrue($this->messageForm->has('message'));
@@ -21,6 +25,10 @@ class NewMessageFormTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->messageForm->has('submit'));
     }
 
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Form\NewMessageForm::has
+     * @covers Eye4web\ZfcUser\Pm\Form\NewMessageForm::has
+     */
     public function testHasInputFilter()
     {
         $this->assertTrue($this->messageForm->getInputFilter()->has('message'));

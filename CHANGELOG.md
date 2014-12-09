@@ -9,3 +9,4 @@
  - exclude entity interfaces from coverage
  - added Form\NewMessageForm test
  - added Form\NewConversationForm test
+ - added View\Helper\ZfcUserPmHelper test
