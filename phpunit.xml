@@ -11,6 +11,9 @@
             <exclude>
                 <directory suffix=".php">./config</directory>
                 <file>./src/Eye4web/ZfcUser/Pm/Module.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Entity/ConversationInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Entity/ConversationReceiverInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Entity/MessageInterface.php</file>
             </exclude>
         </whitelist>
     </filter>
