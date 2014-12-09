@@ -8,3 +8,4 @@
  - added  Entity\Message Test
  - exclude entity interfaces from coverage
  - added Form\NewMessageForm test
+ - added Form\NewConversationForm test
