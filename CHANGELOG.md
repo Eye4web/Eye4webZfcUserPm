@@ -10,3 +10,4 @@
  - added Form\NewMessageForm test
  - added Form\NewConversationForm test
  - added View\Helper\ZfcUserPmHelper test
+ - added Service\PmService test ( 70 % )
