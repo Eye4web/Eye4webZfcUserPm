@@ -54,9 +54,25 @@ class ConversationReceiver implements ConversationReceiverInterface
     {
         $this->id = $id;
     }
+    
+    /**
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
     /**
-     * @return mixed
+     * @param bool $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
+    /**
+     * @return bool
      */
     public function getUnread()
     {
@@ -88,7 +104,7 @@ class ConversationReceiver implements ConversationReceiverInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTo()
     {
@@ -96,7 +112,7 @@ class ConversationReceiver implements ConversationReceiverInterface
     }
 
     /**
-     * @param mixed $to
+     * @param string $to
      */
     public function setTo($to)
     {

@@ -24,4 +24,5 @@ interface ConversationReceiverInterface
     public function getTo();
     public function getUnread();
     public function getConversation();
+    public function getDeleted();
 }
