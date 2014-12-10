@@ -48,11 +48,11 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
         $this->mapper->expects($this->once())
                             ->method('getUserConversations')
                             ->with($id)
-                            ->will($this->returnValue(array(
+                            ->will($this->returnValue([
             $conversation1,
             $conversation2,
             $conversation3,
-        )));
+        ]));
 
         $conversations = $this->service->getUserConversations($id);
         $this->assertCount(3, $conversations);
@@ -66,11 +66,11 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteConversations()
     {
-        $conversationIds = array(
+        $conversationIds = [
             1,
             2,
             3,
-        );
+        ];
 
         $user = new User();
         $user->setId(1);
@@ -96,11 +96,11 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
         $this->mapper->expects($this->once())
                             ->method('getMessages')
                             ->with($conversation)
-                            ->will($this->returnValue(array(
+                            ->will($this->returnValue([
             $message1,
             $message2,
             $message3,
-        )));
+        ]));
 
         $messages = $this->service->getMessages($conversation);
         $this->assertCount(3, $messages);
@@ -142,28 +142,28 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
         $user2->setId(2);
         $user2->setDisplayName('ikhsan');
 
-        $returnValue = array(
-            0 => array(
+        $returnValue = [
+            0 => [
                 'id' => 1,
                 'text' => 'abdul malik',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'id' => 2,
                 'text' => 'ikhsan',
-            ),
-        );
+            ],
+        ];
 
         $this->mapper->expects($this->once())
                             ->method('getUsers')
-                            ->will($this->returnValue(array(
+                            ->will($this->returnValue([
             $user1,
             $user2,
-        )));
+        ]));
 
         $users = $this->service->getUsers();
         $this->assertCount(2, $users);
-        $this->assertEquals(array('id' => $user1->getId(), 'text' => $user1->getDisplayName()), $users[0]);
-        $this->assertEquals(array('id' => $user2->getId(), 'text' => $user2->getDisplayName()), $users[1]);
+        $this->assertEquals(['id' => $user1->getId(), 'text' => $user1->getDisplayName()], $users[0]);
+        $this->assertEquals(['id' => $user2->getId(), 'text' => $user2->getDisplayName()], $users[1]);
     }
 
     /**
@@ -195,10 +195,10 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
         $this->mapper->expects($this->once())
                             ->method('getParticipants')
                             ->with($conversation)
-                            ->will($this->returnValue(array(
+                            ->will($this->returnValue([
             $user1,
             $user2,
-        )));
+        ]));
 
         $participants = $this->service->getParticipants($conversation);
         $this->assertCount(2, $participants);
@@ -243,11 +243,11 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
      */
     public function testNewConversation()
     {
-        $data = array(
+        $data = [
             'headline' => 'foo',
             'message' => 'bar',
             'to' => "1,2",
-        );
+        ];
 
         $user = new User();
         $user->setId(1);
@@ -334,10 +334,10 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
         $this->mapper->expects($this->once())
                             ->method('getUnreadConversations')
                             ->with($user)
-                            ->will($this->returnValue(array(
+                            ->will($this->returnValue([
             $conversation1,
             $conversation2,
-        )));
+        ]));
 
         $conversations =  $this->service->getUnreadConversations($user);
         $this->assertCount(2, $conversations);

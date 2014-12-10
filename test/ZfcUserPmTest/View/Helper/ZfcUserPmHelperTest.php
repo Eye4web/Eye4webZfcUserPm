@@ -83,11 +83,11 @@ class ZfcUserPmHelperTest extends PHPUnit_Framework_TestCase
         $this->pmService->expects($this->once())
                             ->method('getParticipants')
                             ->with($conversation)
-                            ->will($this->returnValue(array(
+                            ->will($this->returnValue([
             $user1,
             $user2,
             $user3,
-        )));
+        ]));
 
         $participants = $this->helper->getParticipants($conversation);
         $this->assertCount(3, $participants);
@@ -145,11 +145,11 @@ class ZfcUserPmHelperTest extends PHPUnit_Framework_TestCase
         $this->pmService->expects($this->once())
                             ->method('getUnreadConversations')
                             ->with($user)
-                            ->will($this->returnValue(array(
+                            ->will($this->returnValue([
             $conversation1,
             $conversation2,
             $conversation3,
-        )));
+        ]));
 
         $conversations = $this->helper->getUnreadConversations($user);
         $this->assertCount(3, $conversations);

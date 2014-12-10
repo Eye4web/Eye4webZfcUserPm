@@ -16,6 +16,7 @@
                 <file>./src/Eye4web/ZfcUser/Pm/Entity/MessageInterface.php</file>
                 <file>./src/Eye4web/ZfcUser/Pm/Service/PmServiceInterface.php</file>
                 <file>./src/Eye4web/ZfcUser/Pm/Options/ModuleOptionsInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Mapper/PmMapperInterface.php</file>
             </exclude>
         </whitelist>
     </filter>

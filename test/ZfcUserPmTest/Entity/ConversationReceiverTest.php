@@ -25,6 +25,7 @@ class ConversationReceiverTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($conversationReceiver->getId());
         $this->assertFalse($conversationReceiver->getDeleted());
         $this->assertTrue($conversationReceiver->getUnread());
+        $this->assertFalse($conversationReceiver->isDeleted());
     }
 
     /**
@@ -40,11 +41,13 @@ class ConversationReceiverTest extends PHPUnit_Framework_TestCase
     /**
      * @covers Eye4web\ZfcUser\Pm\Entity\ConversationReceiver::setDeleted
      * @covers Eye4web\ZfcUser\Pm\Entity\ConversationReceiver::getDeleted
+     * @covers Eye4web\ZfcUser\Pm\Entity\ConversationReceiver::isDeleted
      */
     public function testSetGetDeleted()
     {
         $this->conversationReceiver->setDeleted(true);
         $this->assertTrue($this->conversationReceiver->getDeleted());
+        $this->assertTrue($this->conversationReceiver->isDeleted());
     }
 
     /**
