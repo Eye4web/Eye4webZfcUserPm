@@ -28,7 +28,8 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
     {
         parent::__construct($name);
 
-        $this->add([
+        $this->add(
+            [
             'name' => 'headline',
             'options' => [
                 'label' => 'Headline',
@@ -37,9 +38,11 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 'class' => 'form-control',
             ],
             'type'  => 'Text',
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'name' => 'message',
             'attributes' => [
                 'class' => 'form-control',
@@ -48,17 +51,21 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 'label' => 'Message',
             ],
             'type'  => 'Textarea',
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'name' => 'to',
             'options' => [
                 'label' => 'To',
             ],
             'type'  => 'Hidden',
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'type' => 'Zend\Form\Element\Csrf',
             'name' => 'csrf',
             'options' => [
@@ -66,9 +73,11 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                     'timeout' => 999999999999,
                 ],
             ],
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Button',
             'attributes' => [
@@ -79,7 +88,8 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Send',
             ],
-        ]);
+            ]
+        );
     }
 
     public function getInputFilterSpecification()

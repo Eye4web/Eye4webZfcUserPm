@@ -28,15 +28,18 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
     {
         parent::__construct($name);
 
-        $this->add([
+        $this->add(
+            [
             'name' => 'message',
             'attributes' => [
                 'class' => 'form-control',
             ],
             'type'  => 'Textarea',
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'type' => 'Zend\Form\Element\Csrf',
             'name' => 'csrf',
             'options' => [
@@ -44,9 +47,11 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
                     'timeout' => 999999999999,
                 ],
             ],
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Button',
             'attributes' => [
@@ -57,7 +62,8 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Send',
             ],
-        ]);
+            ]
+        );
     }
 
     public function getInputFilterSpecification()

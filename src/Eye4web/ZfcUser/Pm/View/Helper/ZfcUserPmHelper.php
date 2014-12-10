@@ -27,10 +27,14 @@ use ZfcUser\Mapper\UserInterface as ZfcUserMapperInterface;
 
 class ZfcUserPmHelper extends AbstractHelper
 {
-    /** @var PmServiceInterface  */
+    /**
+ * @var PmServiceInterface  
+*/
     protected $pmService;
 
-    /** @var ZfcUserMapperInterface  */
+    /**
+ * @var ZfcUserMapperInterface  
+*/
     protected $zfcUserMapper;
 
     /**
@@ -89,7 +93,7 @@ class ZfcUserPmHelper extends AbstractHelper
     }
 
     /**
-     * @param  UserInterface           $user
+     * @param  UserInterface $user
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user)

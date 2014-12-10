@@ -25,7 +25,7 @@ use ZfcUser\Entity\UserInterface;
 interface PmMapperInterface
 {
     /**
-     * @param  string                  $userId
+     * @param  string $userId
      * @return ConversationInterface[]
      */
     public function getUserConversations($userId);
@@ -58,7 +58,7 @@ interface PmMapperInterface
     public function getUsers();
 
     /**
-     * @param  string                $conversationId
+     * @param  string $conversationId
      * @return ConversationInterface
      */
     public function getConversation($conversationId);
@@ -82,8 +82,8 @@ interface PmMapperInterface
     public function isUnread(ConversationInterface $conversation, UserInterface $user);
 
     /**
-     * @param  array                 $data
-     * @param  UserInterface         $user
+     * @param  array         $data
+     * @param  UserInterface $user
      * @return ConversationInterface
      */
     public function newConversation(array $data, UserInterface $user);
@@ -103,7 +103,7 @@ interface PmMapperInterface
     public function getLastReply(ConversationInterface $conversation);
 
     /**
-     * @param  UserInterface           $user
+     * @param  UserInterface $user
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user);

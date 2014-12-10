@@ -29,7 +29,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
 
-    /** @var PmMapperInterface */
+    /**
+ * @var PmMapperInterface 
+*/
     protected $pmMapper;
 
     /**
@@ -41,16 +43,18 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     }
 
     /**
-     * @param  string                  $userId
+     * @param  string $userId
      * @return ConversationInterface[]
      */
     public function getUserConversations($userId)
     {
         $conversations = $this->pmMapper->getUserConversations($userId);
 
-        $this->getEventManager()->trigger('getUserConversations', $this, [
+        $this->getEventManager()->trigger(
+            'getUserConversations', $this, [
             'conversations' => $conversations
-        ]);
+            ]
+        );
 
         return $conversations;
     }
@@ -62,10 +66,12 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function deleteConversations(array $conversationsIds, UserInterface $user)
     {
-        $this->getEventManager()->trigger('deleteConversations.pre', $this, [
+        $this->getEventManager()->trigger(
+            'deleteConversations.pre', $this, [
             'conversationsIds' => $conversationsIds,
             'user' => $user
-        ]);
+            ]
+        );
 
         $this->pmMapper->deleteConversations($conversationsIds, $user);
     }
@@ -78,9 +84,11 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     {
         $messages = $this->pmMapper->getMessages($conversation);
 
-        $this->getEventManager()->trigger('getMessages', $this, [
+        $this->getEventManager()->trigger(
+            'getMessages', $this, [
             'messages' => $messages
-        ]);
+            ]
+        );
 
         return $messages;
     }
@@ -92,10 +100,12 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function markRead(ConversationInterface $conversation, UserInterface $user)
     {
-        $this->getEventManager()->trigger('markRead.pre', $this, [
+        $this->getEventManager()->trigger(
+            'markRead.pre', $this, [
             'conversation' => $conversation,
             'user' => $user
-        ]);
+            ]
+        );
 
         $this->pmMapper->markRead($conversation, $user);
     }
@@ -114,24 +124,28 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
             ];
         }
 
-        $this->getEventManager()->trigger('getUsers', $this, [
+        $this->getEventManager()->trigger(
+            'getUsers', $this, [
             'users' => $users
-        ]);
+            ]
+        );
 
         return $users;
     }
 
     /**
-     * @param  string                $conversationId
+     * @param  string $conversationId
      * @return ConversationInterface
      */
     public function getConversation($conversationId)
     {
         $conversation = $this->pmMapper->getConversation($conversationId);
 
-        $this->getEventManager()->trigger('getConversation', $this, [
+        $this->getEventManager()->trigger(
+            'getConversation', $this, [
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
         return $conversation;
     }
@@ -144,9 +158,11 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     {
         $participants = $this->pmMapper->getParticipants($conversation);
 
-        $this->getEventManager()->trigger('getParticipants', $this, [
+        $this->getEventManager()->trigger(
+            'getParticipants', $this, [
             'participants' => $participants
-        ]);
+            ]
+        );
 
         return $participants;
     }
@@ -158,16 +174,20 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function isUnread(ConversationInterface $conversation, UserInterface $user)
     {
-        $this->getEventManager()->trigger('isUnread.pre', $this, [
+        $this->getEventManager()->trigger(
+            'isUnread.pre', $this, [
             'conversation' => $conversation,
             'user' => $user
-        ]);
+            ]
+        );
 
         $isUnread = $this->pmMapper->isUnread($conversation, $user);
 
-        $this->getEventManager()->trigger('isUnread', $this, [
+        $this->getEventManager()->trigger(
+            'isUnread', $this, [
             'isUnread' => $isUnread
-        ]);
+            ]
+        );
 
         return $isUnread;
     }
@@ -177,34 +197,40 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function markUnread(ConversationInterface $conversation)
     {
-        $this->getEventManager()->trigger('markUnread.pre', $this, [
+        $this->getEventManager()->trigger(
+            'markUnread.pre', $this, [
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
         $this->pmMapper->markUnread($conversation);
     }
 
     /**
-     * @param  array                 $data
-     * @param  UserInterface         $user
+     * @param  array         $data
+     * @param  UserInterface $user
      * @return ConversationInterface
      */
     public function newConversation(array $data, UserInterface $user)
     {
-        $this->getEventManager()->trigger('newConversation.pre', $this, [
+        $this->getEventManager()->trigger(
+            'newConversation.pre', $this, [
             'data' => $data,
             'user' => $user,
-        ]);
+            ]
+        );
 
         $conversation = $this->pmMapper->newConversation($data, $user);
 
         // Mark it read for the sending user
         $this->markRead($conversation, $user);
 
-        $this->getEventManager()->trigger('newConversation', $this, [
+        $this->getEventManager()->trigger(
+            'newConversation', $this, [
             'conversation' => $conversation,
             'user' => $user,
-        ]);
+            ]
+        );
 
         return $conversation;
     }
@@ -217,11 +243,13 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function newMessage(ConversationInterface $conversation, $message, UserInterface $user)
     {
-        $this->getEventManager()->trigger('newMessage.pre', $this, [
+        $this->getEventManager()->trigger(
+            'newMessage.pre', $this, [
             'conversation' => $conversation,
             'message' => $message,
             'user' => $user,
-        ]);
+            ]
+        );
 
         $message = $this->pmMapper->newMessage($conversation, $message, $user);
 
@@ -229,11 +257,13 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         // Mark it read for the sending user
         $this->markRead($conversation, $user);
 
-        $this->getEventManager()->trigger('newMessage', $this, [
+        $this->getEventManager()->trigger(
+            'newMessage', $this, [
             'conversation' => $conversation,
             'message' => $message,
             'user' => $user,
-        ]);
+            ]
+        );
 
         return $message;
     }
@@ -246,24 +276,28 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     {
         $lastReply = $this->pmMapper->getLastReply($conversation);
 
-        $this->getEventManager()->trigger('getLastReply', $this, [
+        $this->getEventManager()->trigger(
+            'getLastReply', $this, [
             'lastReply' => $lastReply,
-        ]);
+            ]
+        );
 
         return $lastReply;
     }
 
     /**
-     * @param  UserInterface           $user
+     * @param  UserInterface $user
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user)
     {
         $unreadConversations = $this->pmMapper->getUnreadConversations($user);
 
-        $this->getEventManager()->trigger('getUnreadConversations', $this, [
+        $this->getEventManager()->trigger(
+            'getUnreadConversations', $this, [
             'unreadConversations' => $unreadConversations,
-        ]);
+            ]
+        );
 
         return $unreadConversations;
     }

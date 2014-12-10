@@ -28,16 +28,19 @@ class DeleteConversationsForm extends Form implements InputFilterProviderInterfa
     {
         parent::__construct($name);
 
-        $this->add([
+        $this->add(
+            [
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'collectionIds[]',
             'options' => [
                 'disable_inarray_validator' => true,
                 'use_hidden_element' => false,
             ],
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'type' => 'Zend\Form\Element\Csrf',
             'name' => 'csrf',
             'options' => [
@@ -45,9 +48,11 @@ class DeleteConversationsForm extends Form implements InputFilterProviderInterfa
                     'timeout' => 999999999999,
                 ],
             ],
-        ]);
+            ]
+        );
 
-        $this->add([
+        $this->add(
+            [
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Button',
             'attributes' => [
@@ -58,7 +63,8 @@ class DeleteConversationsForm extends Form implements InputFilterProviderInterfa
             'options' => [
                 'label' => 'Send',
             ],
-        ]);
+            ]
+        );
     }
 
     public function getInputFilterSpecification()

@@ -34,10 +34,14 @@ class PmControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $controllerManager)
     {
-        /** @var ServiceLocatorInterface $serviceManager */
+        /**
+ * @var ServiceLocatorInterface $serviceManager 
+*/
         $serviceManager = $controllerManager->getServiceLocator();
 
-        /** @var PmService $pmService */
+        /**
+ * @var PmService $pmService 
+*/
         $pmService = $serviceManager->get('Eye4web\ZfcUser\Pm\Service\PmService');
 
         $newConversationForm = $serviceManager->get('Eye4web\ZfcUser\Pm\Form\NewConversationForm');
@@ -52,7 +56,9 @@ class PmControllerFactory implements FactoryInterface
 
         $controller = new PmController($pmService, $newConversationForm, $newMessageForm, $deleteConversationsForm, $options, $zfcUserModuleOptions);
 
-        /** @var \Zend\EventManager\EventManager $eventManager */
+        /**
+ * @var \Zend\EventManager\EventManager $eventManager 
+*/
         $eventManager = $serviceManager->get('EventManager');
         $controller->setEventManager($eventManager);
 

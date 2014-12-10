@@ -53,9 +53,9 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      * @param ZfcUserModuleOptions   $zfcUserOptions
      */
     public function __construct(ObjectManager $objectManager,
-                                ModuleOptionsInterface $options,
-                                ZfcUserModuleOptions $zfcUserOptions)
-    {
+        ModuleOptionsInterface $options,
+        ZfcUserModuleOptions $zfcUserOptions
+    ) {
         $this->objectManager = $objectManager;
         $this->options = $options;
         $this->zfcUserOptions = $zfcUserOptions;
@@ -69,22 +69,26 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
         $repository = $this->zfcUserOptions->getUserEntityClass();
         $users = $this->objectManager->getRepository($repository)->findAll();
 
-        $this->getEventManager()->trigger('getUsers', $this, [
+        $this->getEventManager()->trigger(
+            'getUsers', $this, [
             'users' => $users,
-        ]);
+            ]
+        );
 
         return $users;
     }
 
     /**
-     * @param  UserInterface           $user
+     * @param  UserInterface $user
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user)
     {
-        $this->getEventManager()->trigger('getUnreadConversations.pre', $this, [
+        $this->getEventManager()->trigger(
+            'getUnreadConversations.pre', $this, [
             'user' => $user,
-        ]);
+            ]
+        );
 
         $userReceives = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy(['to' => $user->getId(), 'unread' => true, 'deleted' => false]);
         $conversations = [];
@@ -92,34 +96,42 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
             $conversations[] = $receive->getConversation();
         }
 
-        $this->getEventManager()->trigger('getUnreadConversations', $this, [
+        $this->getEventManager()->trigger(
+            'getUnreadConversations', $this, [
             'user' => $user,
             'conversations' => $conversations
-        ]);
+            ]
+        );
 
         return $conversations;
     }
 
     /**
-     * @param  ConversationInterface    $conversation
+     * @param  ConversationInterface $conversation
      * @return array|MessageInterface[]
      */
     public function getMessages(ConversationInterface $conversation)
     {
-        $this->getEventManager()->trigger('getMessages.pre', $this, [
+        $this->getEventManager()->trigger(
+            'getMessages.pre', $this, [
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
-        $messages = $this->objectManager->getRepository($this->options->getMessageEntity())->findBy([
+        $messages = $this->objectManager->getRepository($this->options->getMessageEntity())->findBy(
+            [
             'conversation' => $conversation->getId(),
-        ], [
+            ], [
             'date' => $this->options->getMessageSortOrder()
-        ]);
+            ]
+        );
 
-        $this->getEventManager()->trigger('getMessages', $this, [
+        $this->getEventManager()->trigger(
+            'getMessages', $this, [
             'messages' => $messages,
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
         return $messages;
     }
@@ -131,10 +143,12 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function markRead(ConversationInterface $conversation, UserInterface $user)
     {
-        $this->getEventManager()->trigger('markRead.pre', $this, [
+        $this->getEventManager()->trigger(
+            'markRead.pre', $this, [
             'user' => $user,
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
         $repository =  $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
         $conversationReceive = $repository->findOneBy(['conversation' => $conversation->getId(), 'to' => $user->getId()]);
@@ -149,9 +163,11 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function getParticipants(ConversationInterface $conversation)
     {
-        $this->getEventManager()->trigger('getParticipants.pre', $this, [
+        $this->getEventManager()->trigger(
+            'getParticipants.pre', $this, [
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
         $receivers = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())
             ->findBy(['conversation' => $conversation->getId()]);
@@ -161,31 +177,35 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
             $participants[] = $this->objectManager->find($this->zfcUserOptions->getUserEntityClass(), $receiver->getTo());
         }
 
-        $this->getEventManager()->trigger('getParticipants', $this, [
+        $this->getEventManager()->trigger(
+            'getParticipants', $this, [
             'conversation' => $conversation,
             'participants' => $participants,
-        ]);
+            ]
+        );
 
         return $participants;
     }
 
     /**
-     * @param  string                       $conversationId
+     * @param  string $conversationId
      * @return ConversationInterface|object
      */
     public function getConversation($conversationId)
     {
         $conversation = $this->objectManager->find($this->options->getConversationEntity(), $conversationId);
 
-        $this->getEventManager()->trigger('getConversation', $this, [
+        $this->getEventManager()->trigger(
+            'getConversation', $this, [
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
         return $conversation;
     }
 
     /**
-     * @param  string                        $userId
+     * @param  string $userId
      * @return array|ConversationInterface[]
      */
     public function getUserConversations($userId)
@@ -196,9 +216,11 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
             $conversations[] = $receive->getConversation();
         }
 
-        $this->getEventManager()->trigger('getUserConversations', $this, [
+        $this->getEventManager()->trigger(
+            'getUserConversations', $this, [
             'conversations' => $conversations
-        ]);
+            ]
+        );
 
         return $conversations;
     }
@@ -209,16 +231,20 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function getLastReply(ConversationInterface $conversation)
     {
-        $this->getEventManager()->trigger('getLastReply.pre', $this, [
+        $this->getEventManager()->trigger(
+            'getLastReply.pre', $this, [
             'conversation' => $conversation
-        ]);
+            ]
+        );
 
         $message = $this->objectManager->getRepository($this->options->getMessageEntity())->findOneBy(['conversation' => $conversation->getId()], ['date' => 'DESC']);
 
-        $this->getEventManager()->trigger('getLastReply.pre', $this, [
+        $this->getEventManager()->trigger(
+            'getLastReply.pre', $this, [
             'conversation' => $conversation,
             'message' => $message
-        ]);
+            ]
+        );
 
         return $message;
     }
@@ -228,9 +254,11 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function markUnread(ConversationInterface $conversation)
     {
-        $this->getEventManager()->trigger('markUnread.pre', $this, [
+        $this->getEventManager()->trigger(
+            'markUnread.pre', $this, [
             'conversation' => $conversation,
-        ]);
+            ]
+        );
 
         $repository =  $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
         $receivers = $repository->findBy(['conversation' => $conversation->getId()]);
@@ -251,11 +279,13 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function newMessage(ConversationInterface $conversation, $messageText, UserInterface $user)
     {
-        $this->getEventManager()->trigger('newMessage.pre', $this, [
+        $this->getEventManager()->trigger(
+            'newMessage.pre', $this, [
             'conversation' => $conversation,
             'message' => $messageText,
             'user' => $user
-        ]);
+            ]
+        );
 
         $messageEntity = $this->options->getMessageEntity();
 
@@ -267,11 +297,13 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
 
         $this->objectManager->flush();
 
-        $this->getEventManager()->trigger('newMessage', $this, [
+        $this->getEventManager()->trigger(
+            'newMessage', $this, [
             'conversation' => $conversation,
             'message' => $message,
             'user' => $user
-        ]);
+            ]
+        );
 
         return $message;
     }
@@ -283,10 +315,12 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function deleteConversations(array $conversationsIds, UserInterface $user)
     {
-        $this->getEventManager()->trigger('deleteConversations.pre', $this, [
+        $this->getEventManager()->trigger(
+            'deleteConversations.pre', $this, [
             'conversationsIds' => $conversationsIds,
             'user' => $user
-        ]);
+            ]
+        );
 
         $repository = $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
 
@@ -305,41 +339,49 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function isUnread(ConversationInterface $conversation, UserInterface $user)
     {
-        $this->getEventManager()->trigger('isUnread.pre', $this, [
+        $this->getEventManager()->trigger(
+            'isUnread.pre', $this, [
             'conversation' => $conversation,
             'user' => $user
-        ]);
+            ]
+        );
 
         $repository = $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
         $conversationReceiver = $repository->findOneBy(['conversation' => $conversation->getId(), 'to' => $user->getId()]);
 
         $unread = $conversationReceiver->getUnread();
 
-        $this->getEventManager()->trigger('isUnread', $this, [
+        $this->getEventManager()->trigger(
+            'isUnread', $this, [
             'conversation' => $conversation,
             'unread' => $unread
-        ]);
+            ]
+        );
 
         return $unread;
     }
 
     /**
-     * @param  array                 $data
-     * @param  UserInterface         $user
+     * @param  array         $data
+     * @param  UserInterface $user
      * @return ConversationInterface
      */
     public function newConversation(array $data, UserInterface $user)
     {
-        $this->getEventManager()->trigger('newConversation.pre', $this, [
+        $this->getEventManager()->trigger(
+            'newConversation.pre', $this, [
             'data' => $data,
             'user' => $user
-        ]);
+            ]
+        );
 
         $messageEntity = $this->options->getMessageEntity();
         $conversationEntity = $this->options->getConversationEntity();
         $conversationReceiverEntity = $this->options->getConversationReceiverEntity();
 
-        /** @var ConversationInterface $conversation */
+        /**
+ * @var ConversationInterface $conversation 
+*/
         $conversation = new $conversationEntity();
         $conversation->setHeadline($data['headline']);
         $this->objectManager->persist($conversation);
@@ -364,12 +406,14 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
 
         $this->objectManager->flush();
 
-        $this->getEventManager()->trigger('newConversation.pre', $this, [
+        $this->getEventManager()->trigger(
+            'newConversation.pre', $this, [
             'conversationReceivers' => $conversationReceivers,
             'message' => $message,
             'conversation' => $conversation,
             'user' => $user
-        ]);
+            ]
+        );
 
         return $conversation;
     }

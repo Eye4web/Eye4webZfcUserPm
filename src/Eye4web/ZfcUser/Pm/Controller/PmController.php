@@ -66,12 +66,12 @@ class PmController extends AbstractActionController implements EventManagerAware
      * @param ZfcUserModuleOptions    $zfcUserOptions
      */
     public function __construct(PmServiceInterface $pmService,
-                                NewConversationForm $newConversationForm,
-                                NewMessageForm $newMessageForm,
-                                DeleteConversationsForm $deleteConversationsForm,
-                                ModuleOptionsInterface $options,
-                                ZfcUserModuleOptions $zfcUserOptions)
-    {
+        NewConversationForm $newConversationForm,
+        NewMessageForm $newMessageForm,
+        DeleteConversationsForm $deleteConversationsForm,
+        ModuleOptionsInterface $options,
+        ZfcUserModuleOptions $zfcUserOptions
+    ) {
         $this->pmService = $pmService;
         $this->newConversationForm = $newConversationForm;
         $this->newMessageForm = $newMessageForm;
@@ -96,10 +96,12 @@ class PmController extends AbstractActionController implements EventManagerAware
         $paginator->setDefaultItemCountPerPage($this->options->getConversationsPerPage());
         $paginator->setCurrentPageNumber($page);
 
-        $viewModel = new ViewModel([
+        $viewModel = new ViewModel(
+            [
             'conversations' => $paginator,
             'form' => $form,
-        ]);
+            ]
+        );
         $viewModel->setTemplate('eye4web/zfc-user/pm/index.phtml');
 
         $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/list', ['page' => $page]);
@@ -140,11 +142,13 @@ class PmController extends AbstractActionController implements EventManagerAware
 
         $this->pmService->markRead($conversation, $user);
 
-        $viewModel = new ViewModel([
+        $viewModel = new ViewModel(
+            [
             'conversation' => $conversation,
             'messages' => &$paginator,
             'form' => $form,
-        ]);
+            ]
+        );
         $viewModel->setTemplate('eye4web/zfc-user/pm/read-conversation.phtml');
 
         $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/read-conversation', ['conversationId' => $conversation->getId()]);
@@ -177,10 +181,12 @@ class PmController extends AbstractActionController implements EventManagerAware
         $users = $this->pmService->getUsers();
         $form = $this->newConversationForm;
 
-        $viewModel = new ViewModel([
+        $viewModel = new ViewModel(
+            [
             'users' => $users,
             'form' => $form,
-        ]);
+            ]
+        );
         $viewModel->setTemplate('eye4web/zfc-user/pm/new-conversation.phtml');
 
         $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/new-conversation');
