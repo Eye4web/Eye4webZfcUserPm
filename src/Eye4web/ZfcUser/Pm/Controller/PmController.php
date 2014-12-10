@@ -9,6 +9,10 @@
 
 namespace Eye4web\ZfcUser\Pm\Controller;
 
+use Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm;
+use Eye4web\ZfcUser\Pm\Form\NewConversationForm;
+use Eye4web\ZfcUser\Pm\Form\NewMessageForm;
+use Eye4web\ZfcUser\Pm\Options\ModuleOptions;
 use Eye4web\ZfcUser\Pm\Service\PmServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -18,17 +22,36 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 
 class PmController extends AbstractActionController
 {
+    /**
+     * @var PmServiceInterface
+     */
     protected $pmService;
 
+    /**
+     * @var NewConversationForm
+     */
     protected $newConversationForm;
 
+    /**
+     * @var NewMessageForm
+     */
     protected $newMessageForm;
 
+    /**
+     * @var DeleteConversationsForm
+     */
     protected $deleteConversationsForm;
 
+    /**
+     * @var ModuleOptions
+     */
     protected $options;
 
-    public function __construct(PmServiceInterface $pmService, $newConversationForm, $newMessageForm, $deleteConversationsForm, $options)
+    public function __construct(PmServiceInterface $pmService,
+                                NewConversationForm $newConversationForm,
+                                NewMessageForm $newMessageForm,
+                                DeleteConversationsForm $deleteConversationsForm,
+                                ModuleOptions $options)
     {
         $this->pmService = $pmService;
         $this->newConversationForm = $newConversationForm;
