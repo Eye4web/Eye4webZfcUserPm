@@ -15,3 +15,4 @@
 2014-12-10
 ----------
 - undo add setDeleted($deleted) in ConversationReceiver because already in there.
+- added Form\DeleteConversationsForm test
