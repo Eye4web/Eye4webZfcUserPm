@@ -24,3 +24,7 @@
 - added Factory\Controller\PmControllerFactory test
 - added Options\ModuleOptions test
 - adding Mapper/DoctrineORM/PmMapper test
+
+2014-12-11
+----------
+- patch Factory\Controller\PmController test
