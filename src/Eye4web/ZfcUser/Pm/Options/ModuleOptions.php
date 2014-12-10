@@ -16,6 +16,42 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
 
     protected $messageSortOrder = 'DESC';
 
+    protected $messagesPerPage = 50;
+
+    protected $conversationsPerPage = 20;
+
+    /**
+     * @return int
+     */
+    public function getConversationsPerPage()
+    {
+        return $this->conversationsPerPage;
+    }
+
+    /**
+     * @param int $conversationsPerPage
+     */
+    public function setConversationsPerPage($conversationsPerPage)
+    {
+        $this->conversationsPerPage = $conversationsPerPage;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMessagesPerPage()
+    {
+        return $this->messagesPerPage;
+    }
+
+    /**
+     * @param int $messagesPerPage
+     */
+    public function setMessagesPerPage($messagesPerPage)
+    {
+        $this->messagesPerPage = $messagesPerPage;
+    }
+
     /**
      * @return string
      */

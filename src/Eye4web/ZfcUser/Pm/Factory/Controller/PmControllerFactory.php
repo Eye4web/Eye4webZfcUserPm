@@ -44,7 +44,11 @@ class PmControllerFactory implements FactoryInterface
 
         $newMessageForm = $serviceManager->get('Eye4web\ZfcUser\Pm\Form\NewMessageForm');
 
-        $controller = new PmController($pmService, $newConversationForm, $newMessageForm);
+        $deleteConversationsForm = $serviceManager->get('Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm');
+
+        $options = $serviceManager->get('Eye4web\ZfcUser\Pm\Options\ModuleOptions');
+
+        $controller = new PmController($pmService, $newConversationForm, $newMessageForm, $deleteConversationsForm, $options);
 
         /** @var \Zend\EventManager\EventManager $eventManager */
         $eventManager = $serviceManager->get('EventManager');

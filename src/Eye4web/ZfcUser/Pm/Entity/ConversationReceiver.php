@@ -102,4 +102,20 @@ class ConversationReceiver implements ConversationReceiverInterface
     {
         $this->to = $to;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param boolean $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
 }

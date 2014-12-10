@@ -13,6 +13,8 @@ use Eye4web\ZfcUser\Pm\Service\PmServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\ArrayAdapter;
 
 class PmController extends AbstractActionController
 {
@@ -22,24 +24,54 @@ class PmController extends AbstractActionController
 
     protected $newMessageForm;
 
-    public function __construct(PmServiceInterface $pmService, $newConversationForm, $newMessageForm)
+    protected $deleteConversationsForm;
+
+    protected $options;
+
+    public function __construct(PmServiceInterface $pmService, $newConversationForm, $newMessageForm, $deleteConversationsForm, $options)
     {
         $this->pmService = $pmService;
         $this->newConversationForm = $newConversationForm;
         $this->newMessageForm = $newMessageForm;
+        $this->deleteConversationsForm = $deleteConversationsForm;
+        $this->options = $options;
     }
 
     public function indexAction()
     {
         $user = $this->ZfcUserAuthentication()->getIdentity();
+        $form = $this->deleteConversationsForm;
         $conversations = $this->pmService->getUserConversations($user->getId());
 
+        // Paginator
+        $paginator = new Paginator(new ArrayAdapter($conversations));
+        $page = $this->params('page', 1);
+        $paginator->setDefaultItemCountPerPage($this->options->getConversationsPerPage());
+        $paginator->setCurrentPageNumber($page);
+
         $viewModel = new ViewModel([
-            'conversations' => $conversations
+            'conversations' => $paginator,
+            'form' => $form
         ]);
         $viewModel->setTemplate('eye4web/zfc-user/pm/index.phtml');
 
-        return $viewModel;
+        $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/list', ['page' => $page]);
+        $prg = $this->prg($redirectUrl, true);
+
+        if ($prg instanceof Response) {
+            return $prg;
+        } elseif ($prg === false) {
+            return $viewModel;
+        }
+
+        $form->setData($prg);
+        if (!$form->isValid()) {
+            return $viewModel;
+        }
+
+        $this->pmService->deleteConversations($prg['collectionIds'], $user);
+
+        return $this->redirect()->toRoute('eye4web/zfc-user/pm/list');
     }
 
     public function readConversationAction()
@@ -49,11 +81,17 @@ class PmController extends AbstractActionController
         $messages = $this->pmService->getMessages($conversation);
         $user = $this->ZfcUserAuthentication()->getIdentity();
 
+        // Paginator
+        $paginator = new Paginator(new ArrayAdapter($messages));
+        $page = $this->params('page', 1);
+        $paginator->setDefaultItemCountPerPage($this->options->getMessagesPerPage());
+        $paginator->setCurrentPageNumber($page);
+
         $this->pmService->markRead($conversation, $user);
 
         $viewModel = new ViewModel([
             'conversation' => $conversation,
-            'messages' => &$messages,
+            'messages' => &$paginator,
             'form' => $form
         ]);
         $viewModel->setTemplate('eye4web/zfc-user/pm/read-conversation.phtml');
@@ -110,6 +148,6 @@ class PmController extends AbstractActionController
         $user = $this->zfcUserAuthentication()->getIdentity();
         $this->pmService->newConversation($form->getData(), $user);
 
-        return $this->redirect()->toRoute('eye4web/zfc-user/pm');
+        return $this->redirect()->toRoute('eye4web/zfc-user/pm/list');
     }
 }

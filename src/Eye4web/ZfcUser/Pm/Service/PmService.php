@@ -47,6 +47,16 @@ class PmService implements PmServiceInterface
     }
 
     /**
+     * @param array $conversationsIds
+     * @param UserInterface $user
+     * @return void
+     */
+    public function deleteConversations(array $conversationsIds, UserInterface $user)
+    {
+        $this->pmMapper->deleteConversations($conversationsIds, $user);
+    }
+
+    /**
      * @param ConversationInterface $conversation
      * @return MessageInterface[]
      */

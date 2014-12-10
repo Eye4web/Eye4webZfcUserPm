@@ -5,6 +5,7 @@ $form->prepare();
 $form->setAttribute('action', $this->url('eye4web/zfc-user/pm/read-conversation', ['conversationId' => $this->conversation->getId()]));
 $form->setAttribute('method', 'post');
 
+echo '<a href="' . $this->url('eye4web/zfc-user/pm/list') . '" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> ' . $this->translate('Back to conversations') . '</a>';
 echo '<h1>' . $this->conversation->getHeadline() . '</h1>';
 
 foreach ($this->messages as $message) {
@@ -26,3 +27,10 @@ echo $this->formRow($form->get('message'));
 echo $this->formRow($form->get('csrf'));
 echo $this->formRow($form->get('submit'));
 echo $this->form()->closeTag();
+
+echo $this->paginationControl($this->messages, 'sliding', ['eye4web/zfc-user/pm/pagination-control.phtml', 'Eye4web\ZfcUser\Pm'], [
+    'route' => 'eye4web/zfc-user/pm/read-conversation',
+    'params' => [
+    'conversationId' => $this->conversation->getId()
+]
+]);

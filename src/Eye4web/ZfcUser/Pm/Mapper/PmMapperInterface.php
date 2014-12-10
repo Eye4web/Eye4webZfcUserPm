@@ -44,6 +44,15 @@ interface PmMapperInterface
     public function markRead(ConversationInterface $conversation, UserInterface $user);
 
     /**
+     * Note: This method doesn't delete from the database,
+     * but sets a deleted flag on the ConversationReceiver entity
+     * @param array $conversationsIds
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function deleteConversations(array $conversationsIds, UserInterface $user);
+
+    /**
      * @return UserInterface[]
      */
     public function getUsers();

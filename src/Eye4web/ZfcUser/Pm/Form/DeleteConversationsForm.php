@@ -22,18 +22,19 @@ use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class NewMessageForm extends Form implements InputFilterProviderInterface
+class DeleteConversationsForm extends Form implements InputFilterProviderInterface
 {
-    public function __construct($name = 'create-message')
+    public function __construct($name = 'delete-conversations')
     {
         parent::__construct($name);
 
         $this->add(array(
-            'name' => 'message',
-            'attributes' => array(
-                'class' => 'form-control'
-            ),
-            'type'  => 'Textarea',
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'collectionIds[]',
+            'options' => array(
+                'disable_inarray_validator' => true,
+                'use_hidden_element' => false,
+            )
         ));
 
         $this->add(array(
@@ -51,8 +52,8 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
             'type' => 'Zend\Form\Element\Button',
             'attributes' => array(
                 'type' => 'submit',
-                'value' => 'Send',
-                'class' => 'btn btn-success',
+                'value' => 'Delete selected',
+                'class' => 'btn btn-danger',
             ),
             'options' => array(
                 'label' => 'Send',
@@ -64,25 +65,8 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
     {
         return [
             [
-                'name' => 'message',
-                'required' => true,
-                'validators' => [
-                    [
-                        'name'    => 'StringLength',
-                        'options' => [
-                            'encoding' => 'UTF-8',
-                            'min' => 10,
-                        ],
-                    ],
-                ],
-                'filters'  => array(
-                    array(
-                        'name' => 'StripTags'
-                    ),
-                    array(
-                        'name' => 'StringTrim'
-                    ),
-                ),
+                'name' => 'collectionIds[]',
+                'required' => false,
             ],
         ];
     }

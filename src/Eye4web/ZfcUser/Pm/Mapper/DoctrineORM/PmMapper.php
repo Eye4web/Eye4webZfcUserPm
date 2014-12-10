@@ -59,7 +59,7 @@ class PmMapper implements PmMapperInterface
      */
     public function getUnreadConversations(UserInterface $user)
     {
-        $userReceives = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy(['to' => $user->getId(), 'unread' => true]);
+        $userReceives = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy(['to' => $user->getId(), 'unread' => true, 'deleted' => false]);
         $conversations = [];
         foreach ($userReceives as $receive) {
             $conversations[] = $receive->getConversation();
@@ -123,7 +123,7 @@ class PmMapper implements PmMapperInterface
      */
     public function getUserConversations($userId)
     {
-        $userReceives = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy(['to' => $userId]);
+        $userReceives = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy(['to' => $userId, 'deleted' => false]);
         $conversations = [];
         foreach ($userReceives as $receive) {
             $conversations[] = $receive->getConversation();
@@ -177,6 +177,23 @@ class PmMapper implements PmMapperInterface
         $this->objectManager->flush();
 
         return $message;
+    }
+
+    /**
+     * @param array $conversationsIds
+     * @param UserInterface $user
+     * @return void
+     */
+    public function deleteConversations(array $conversationsIds, UserInterface $user)
+    {
+        $repository = $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
+
+        foreach ($conversationsIds as $conversationsId) {
+            $conversationReceiver = $repository->findOneBy(['conversation' => $conversationsId, 'to' => $user->getId()]);
+            $conversationReceiver->setDeleted(true);
+        }
+
+        $this->objectManager->flush();
     }
 
     /**

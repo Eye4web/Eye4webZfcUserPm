@@ -5,7 +5,11 @@ $form->prepare();
 $form->setAttribute('action', $this->url('eye4web/zfc-user/pm/new-conversation'));
 $form->setAttribute('method', 'post');
 
+echo '<a href="' . $this->url('eye4web/zfc-user/pm/list') . '" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> ' . $this->translate('Back to conversations') . '</a>';
+
 echo $this->form()->openTag($form);
+
+echo $this->formLabel($form->get('to'));
 echo $this->formRow($form->get('to'));
 echo $this->formRow($form->get('headline'));
 echo $this->formRow($form->get('message'));

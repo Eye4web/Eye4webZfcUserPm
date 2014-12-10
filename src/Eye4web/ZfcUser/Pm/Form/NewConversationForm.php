@@ -30,6 +30,9 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
 
         $this->add(array(
             'name' => 'headline',
+            'options' => [
+                'label' => 'Headline',
+            ],
             'attributes' => array(
                 'class' => 'form-control'
             ),
@@ -41,11 +44,17 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
             'attributes' => array(
                 'class' => 'form-control'
             ),
+            'options' => [
+                'label' => 'Message',
+            ],
             'type'  => 'Textarea',
         ));
 
         $this->add(array(
             'name' => 'to',
+            'options' => [
+                'label' => 'To',
+            ],
             'type'  => 'Hidden',
         ));
 
@@ -62,10 +71,8 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
         $this->add(array(
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Button',
-            'label' => 'Send',
             'attributes' => array(
                 'type' => 'submit',
-                'label' => 'Send',
                 'value' => 'Send',
                 'class' => 'btn btn-success',
             ),

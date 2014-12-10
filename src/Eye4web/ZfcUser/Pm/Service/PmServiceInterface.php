@@ -44,6 +44,13 @@ interface PmServiceInterface
     public function markRead(ConversationInterface $conversation, UserInterface $user);
 
     /**
+     * @param array $conversationsIds
+     * @param UserInterface $user
+     * @return void
+     */
+    public function deleteConversations(array $conversationsIds, UserInterface $user);
+
+    /**
      * @return UserInterface[]
      */
     public function getUsers();

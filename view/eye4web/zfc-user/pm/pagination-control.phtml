@@ -1,0 +1,61 @@
+<?php
+$parameters = isset($this->params) ? $this->params : [];
+?>
+<?php if ($this->pageCount && $this->pageCount > 1) { ?>
+    <ul class="pagination">
+        <!-- Previous page link -->
+        <?php
+        if (isset($this->previous)) {
+            $parameters['page'] = $this->previous;
+            ?>
+            <li>
+                <a href="<?=$this->url($this->route, $parameters)?>">
+                    <<
+                </a>
+            </li>
+        <?php } else { ?>
+            <li class="disabled">
+                <a href="#">
+                    <<
+                </a>
+            </li>
+        <?php } ?>
+        <!-- Numbered page links -->
+        <?php
+        foreach ($this->pagesInRange as $page) {
+            if ($page !== $this->current) {
+                $parameters['page'] = $page;
+                ?>
+                <li>
+                    <a href="<?=$this->url($this->route, $parameters);?>">
+                        <?=$page?>
+                    </a>
+                </li>
+            <?php } else { ?>
+                <li class="active">
+                    <a href="#"><?=$page?></a>
+                </li>
+            <?php
+            }
+        }
+        ?>
+
+        <!-- Next page link -->
+        <?php
+        if (isset($this->next)) {
+            $parameters['page'] = $this->next;
+            ?>
+            <li>
+                <a href="<?=$this->url($this->route, $parameters)?>">
+                    >>
+                </a>
+            </li>
+        <?php } else { ?>
+            <li class="disabled">
+                <a href="#">
+                    >>
+                </a>
+            </li>
+        <?php } ?>
+    </ul>
+<?php } ?>

@@ -44,4 +44,14 @@ interface ModuleOptionsInterface
      * @return string
      */
     public function getMessageEntity();
+
+    /**
+     * @return int
+     */
+    public function getMessagesPerPage();
+
+    /**
+     * @return int
+     */
+    public function getConversationsPerPage();
 }

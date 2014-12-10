@@ -1,11 +1,24 @@
+<?php
+
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('eye4web/zfc-user/pm/list'));
+$form->setAttribute('method', 'post');
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('csrf'));
+
+?>
+
 <a class="btn btn-success" href="<?= $this->url('eye4web/zfc-user/pm/new-conversation') ?>"><?= $this->translate('New conversation') ?></a>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th><?= $this->translate("Headline") ?></th>
             <th><?= $this->translate("Participants") ?></th>
             <th><?= $this->translate("Last reply") ?></th>
-
+            <th class="text-center"><?= $this->formSubmit($form->get('submit')) ?></th>
         </tr>
     </thead>
     <tbody>
@@ -33,7 +46,16 @@
                 echo $name . ' at ' . $lastReply->getDate()->format("H:i, d-m-y");
                 ?>
             </td>
+            <td class="text-center"><?= $this->formCheckbox($form->get('collectionIds[]')->setCheckedValue($conversation->getId())) ?></td>
         </tr>
     <?php } ?>
     </tbody>
 </table>
+
+<?= $this->paginationControl($this->conversations, 'sliding', ['eye4web/zfc-user/pm/pagination-control.phtml', 'Eye4web\ZfcUser\Pm'], [
+    'route' => 'eye4web/zfc-user/pm/list'
+]); ?>
+
+<script>
+
+</script>

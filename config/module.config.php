@@ -25,7 +25,8 @@ return [
         ),
         'invokables' => array(
             'Eye4web\ZfcUser\Pm\Form\NewConversationForm' => 'Eye4web\ZfcUser\Pm\Form\NewConversationForm',
-            'Eye4web\ZfcUser\Pm\Form\NewMessageForm' => 'Eye4web\ZfcUser\Pm\Form\NewMessageForm'
+            'Eye4web\ZfcUser\Pm\Form\NewMessageForm' => 'Eye4web\ZfcUser\Pm\Form\NewMessageForm',
+            'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm' => 'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm'
         ),
     ),
     'controllers' => [
@@ -57,12 +58,18 @@ return [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route'    => '/pm',
-                                    'defaults' => [
-                                        'action'     => 'index',
-                                    ],
                                 ],
-                                'may_terminate' => true,
+                                'may_terminate' => false,
                                 'child_routes' => [
+                                    'list' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route'    => '/list[/:page]',
+                                            'defaults' => [
+                                                'action'     => 'index',
+                                            ],
+                                        ],
+                                    ],
                                     'new-conversation' => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
@@ -75,7 +82,7 @@ return [
                                     'read-conversation' => [
                                         'type' => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => [
-                                            'route'    => '/:conversationId',
+                                            'route'    => '/:conversationId[/:page]',
                                             'defaults' => [
                                                 'action'     => 'readConversation',
                                             ],
