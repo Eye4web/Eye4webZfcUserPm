@@ -16,7 +16,6 @@ class DeleteConversationFormTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm::__construct
-     * @covers Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm::__construct
      */
     public function testHasElement()
     {

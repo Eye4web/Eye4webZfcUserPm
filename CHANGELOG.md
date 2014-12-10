@@ -22,3 +22,4 @@
 - added Factory\Mapper\DoctrineORM\PmMapperFactory test
 - added Factory\Options\ModuleOptionsFactory test
 - added Factory\Controller\PmControllerFactory test
+- added Options\ModuleOptions test
