@@ -17,18 +17,18 @@
  */
 
 return [
-    'service_manager' => array(
-        'factories' => array(
+    'service_manager' => [
+        'factories' => [
             'Eye4web\ZfcUser\Pm\Options\ModuleOptions' => 'Eye4web\ZfcUser\Pm\Factory\Options\ModuleOptionsFactory',
             'Eye4web\ZfcUser\Pm\Service\PmService' => 'Eye4web\ZfcUser\Pm\Factory\Service\PmServiceFactory',
             'Eye4web\ZfcUser\Pm\Mapper\DoctrineORM\PmMapper' => 'Eye4web\ZfcUser\Pm\Factory\Mapper\DoctrineORM\PmMapperFactory'
-        ),
-        'invokables' => array(
+        ],
+        'invokables' => [
             'Eye4web\ZfcUser\Pm\Form\NewConversationForm' => 'Eye4web\ZfcUser\Pm\Form\NewConversationForm',
             'Eye4web\ZfcUser\Pm\Form\NewMessageForm' => 'Eye4web\ZfcUser\Pm\Form\NewMessageForm',
             'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm' => 'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm'
-        ),
-    ),
+        ],
+    ],
     'controllers' => [
         'factories' => [
             'Eye4web\ZfcUser\Pm\Controller\PmController' => 'Eye4web\ZfcUser\Pm\Factory\Controller\PmControllerFactory'

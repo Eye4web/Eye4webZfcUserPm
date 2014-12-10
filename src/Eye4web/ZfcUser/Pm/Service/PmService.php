@@ -81,12 +81,12 @@ class PmService implements PmServiceInterface
     public function getUsers()
     {
         $dbUsers = $this->pmMapper->getUsers();
-        $users = array();
+        $users = [];
         foreach ($dbUsers as $user) {
-            $users[] = array(
+            $users[] = [
                 'id' => $user->getId(),
                 'text' => $user->getDisplayName()
-            );
+            ];
         }
         return $users;
     }

@@ -5,8 +5,8 @@ Introduction
 ------------
 Eye4webZfcUserPm is a basic private message module which allows for sending of messages between users
 By default this module works with Doctrine ORM(through the DoctrineORM mapper). 
-It's very easy to add your own mapper, ZendDb for example.
-1. Create your custom mapper
+It's very easy to add your own mapper, ZendDb for example.   
+1. Create your custom mapper   
 2. Change the mapper in the config, to point to your custom mapper
 
 Note: This module is meant to be very basic and only contain very basic, common, functionality.
@@ -45,7 +45,7 @@ Installation
     $ php composer.phar update
     ```
     
-3. Copy config/eye4web.zfcuser.pm.global.php.dist to config/autoload/eye4web.zfcuser.pm.global.php
+3. Copy config/eye4web.zfcuser.pm.global.php.dist to your autoload folder (`config/autoload/`)
 
 4. Import the database schema into your database. A SQL schema is located in `data/schema.sql`
 
