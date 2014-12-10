@@ -5,7 +5,7 @@ namespace Eye4web\ZfcUserPmTest\Form;
 use PHPUnit_Framework_TestCase;
 use Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm as Form;
 
-class DeleteConversationsFormTest extends PHPUnit_Framework_TestCase
+class DeleteConversationFormTest extends PHPUnit_Framework_TestCase
 {
     protected $deleteConversationForm;
 

@@ -18,7 +18,7 @@
             </exclude>
         </whitelist>
     </filter>
-    
+
     <logging>
         <log type="coverage-html" target="./test/html-report/" charset="UTF-8" yui="true" />
     </logging>

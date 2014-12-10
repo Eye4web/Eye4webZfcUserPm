@@ -62,6 +62,27 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Eye4web\ZfcUser\Pm\Service\PmService::deleteConversations
+     */
+    public function testDeleteConversations()
+    {
+        $conversationIds = array(
+            1,
+            2,
+            3,
+        );
+
+        $user = new User();
+        $user->setId(1);
+
+        $this->mapper->expects($this->once())
+                            ->method('deleteConversations')
+                            ->with($conversationIds, $user);
+
+        $messages = $this->service->deleteConversations($conversationIds, $user);
+    }
+
+    /**
      * @covers Eye4web\ZfcUser\Pm\Service\PmService::getMessages
      */
     public function testGetMessages()
@@ -215,5 +236,113 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
                             ->with($conversation);
 
         $this->service->markUnread($conversation);
+    }
+
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Service\PmService::newConversation
+     */
+    public function testNewConversation()
+    {
+        $data = array(
+            'headline' => 'foo',
+            'message' => 'bar',
+            'to' => "1,2",
+        );
+
+        $user = new User();
+        $user->setId(1);
+
+        $conversation = new Conversation();
+        $conversation->setHeadLine($data['headline']);
+
+        $this->mapper->expects($this->once())
+                            ->method('newConversation')
+                            ->with($data, $user)
+                            ->will($this->returnValue($conversation));
+
+        $this->mapper->expects($this->once())
+                            ->method('markRead')
+                            ->with($conversation, $user);
+
+        $this->service->newConversation($data, $user);
+        $this->service->markUnread($conversation, $user);
+    }
+
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Service\PmService::newMessage
+     */
+    public function testNewMessage()
+    {
+        $conversation = new Conversation();
+        $conversation->setHeadLine('foo');
+
+        $message = new Message();
+        $message->setMessage('foo');
+        $message->setFrom(1);
+        $message->setConversation($conversation);
+
+        $user = new User();
+        $user->setId(1);
+
+        $this->mapper->expects($this->once())
+                            ->method('newMessage')
+                            ->with($conversation, $message, $user)
+                            ->will($this->returnValue($message));
+
+        $this->mapper->expects($this->any())
+                            ->method('markUnread')
+                            ->with($conversation);
+
+        $this->mapper->expects($this->any())
+                            ->method('markRead')
+                            ->with($conversation, $user);
+
+        $this->service->newMessage($conversation, $message, $user);
+        $this->service->markUnread($conversation);
+        $this->service->markRead($conversation, $user);
+    }
+
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Service\PmService::getLastReply
+     */
+    public function testGetLastReply()
+    {
+        $conversation = new Conversation();
+        $conversation->setHeadLine('foo');
+
+        $message = new Message();
+
+        $this->mapper->expects($this->once())
+                            ->method('getLastReply')
+                            ->with($conversation)
+                            ->will($this->returnValue($message));
+
+        $this->assertInstanceOf('Eye4web\ZfcUser\Pm\Entity\MessageInterface', $this->service->getLastReply($conversation));
+    }
+
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Service\PmService::getUnreadConversations
+     */
+    public function testGetUnreadConversations()
+    {
+        $user = new User();
+        $user->setId(1);
+
+        $conversation1 = new Conversation();
+        $conversation2 = new Conversation();
+
+        $this->mapper->expects($this->once())
+                            ->method('getUnreadConversations')
+                            ->with($user)
+                            ->will($this->returnValue(array(
+            $conversation1,
+            $conversation2,
+        )));
+
+        $conversations =  $this->service->getUnreadConversations($user);
+        $this->assertCount(2, $conversations);
+        foreach ($conversations as $conversation) {
+            $this->assertInstanceOf('Eye4web\ZfcUser\Pm\Entity\ConversationInterface', $conversation);
+        }
     }
 }

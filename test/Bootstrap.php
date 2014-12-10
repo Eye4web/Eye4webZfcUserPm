@@ -1,6 +1,6 @@
 <?php
 
-namespace Eye4web\ZfcUserPmTest;
+namespace Eye4web\ZfcUserPmtest;
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
