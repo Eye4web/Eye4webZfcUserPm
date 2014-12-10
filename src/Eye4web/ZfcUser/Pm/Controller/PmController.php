@@ -23,9 +23,8 @@ use ZfcUser\Options\ModuleOptions as ZfcUserModuleOptions;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerAwareTrait;
 
-class PmController extends AbstractActionController implements EventManagerAwareInterface
+class PmController extends AbstractActionController
 {
-    use EventManagerAwareTrait;
 
     /**
      * @var PmServiceInterface
