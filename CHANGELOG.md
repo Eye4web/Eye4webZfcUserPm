@@ -18,3 +18,4 @@
 - added Form\DeleteConversationsForm test
 - Service\PmService  test fully implemented
 - added Factory\View\Helper\ZfcUserPmHelperFactory test
+- added Factory\Service\PmServiceFactory test
