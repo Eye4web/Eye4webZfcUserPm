@@ -25,6 +25,7 @@ use ZfcUser\Entity\UserInterface;
 interface PmMapperInterface
 {
     /**
+     * Get's undeleted conversations(deleted = false) for a user
      * @param  string $userId
      * @return ConversationInterface[]
      */
@@ -103,6 +104,7 @@ interface PmMapperInterface
     public function getLastReply(ConversationInterface $conversation);
 
     /**
+     * Get's unread, undeleted conversations(deleted = false)
      * @param  UserInterface $user
      * @return ConversationInterface[]
      */
