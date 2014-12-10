@@ -86,10 +86,19 @@ class PmControllerFactoryTest extends PHPUnit_Framework_TestCase
                              ->with('Eye4web\ZfcUser\Pm\Options\ModuleOptions')
                              ->willReturn($moduleOptions);
 
+        $zfcModuleOptions = $this->getMockBuilder('ZfcUser\Options\ModuleOptions')
+                              ->disableOriginalConstructor()
+                              ->getMock();
+
+        $this->serviceLocator->expects($this->at(5))
+                             ->method('get')
+                             ->with('zfcuser_module_options')
+                             ->willReturn($zfcModuleOptions);
+
         $eventManager = $this->getMockBuilder('Zend\EventManager\EventManagerInterface')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->serviceLocator->expects($this->at(5))
+        $this->serviceLocator->expects($this->at(6))
             ->method('get')
             ->with('EventManager')
             ->willReturn($eventManager);

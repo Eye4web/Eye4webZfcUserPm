@@ -585,21 +585,21 @@ class PmMapperTest extends PHPUnit_Framework_TestCase
 //
 //        $conversation =  new Conversation;
 //        $conversation->setHeadline($data['headline']);
-// 
+//
 //        $objectRepository = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
 //        $this->objectManager->expects($this->any())
 //                            ->method('persist')
 //                            ->with($conversation);
-//                            
+//
 //        $message =  new Message;
 //        $message->setMessage($data['message']);
 //        $message->setFrom($user->getId());
 //        $message->setConversation($conversation);
-//        
+//
 //        $this->objectManager->expects($this->any())
 //                            ->method('persist')
 //                            ->with($message);
-//                            
+//
 //        $receivers = explode(",", $data['to']);
 //        $receivers[] = $user->getId();
 //        foreach ($receivers as $receiver) {
@@ -611,7 +611,7 @@ class PmMapperTest extends PHPUnit_Framework_TestCase
 //                 ->method('persist')
 //                 ->with($conversationReceiver);
 //	}
-//        
+//
 //        $this->objectManager->expects($this->any())
 //                       ->method('flush');
 //
