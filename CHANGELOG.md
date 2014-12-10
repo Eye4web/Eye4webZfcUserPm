@@ -11,3 +11,7 @@
  - added Form\NewConversationForm test
  - added View\Helper\ZfcUserPmHelper test
  - added Service\PmService test ( 70 % )
+ 
+2014-12-10
+----------
+- undo add setDeleted($deleted) in ConversationReceiver because already in there.
