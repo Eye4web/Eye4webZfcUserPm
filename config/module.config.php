@@ -21,23 +21,23 @@ return [
         'factories' => [
             'Eye4web\ZfcUser\Pm\Options\ModuleOptions' => 'Eye4web\ZfcUser\Pm\Factory\Options\ModuleOptionsFactory',
             'Eye4web\ZfcUser\Pm\Service\PmService' => 'Eye4web\ZfcUser\Pm\Factory\Service\PmServiceFactory',
-            'Eye4web\ZfcUser\Pm\Mapper\DoctrineORM\PmMapper' => 'Eye4web\ZfcUser\Pm\Factory\Mapper\DoctrineORM\PmMapperFactory'
+            'Eye4web\ZfcUser\Pm\Mapper\DoctrineORM\PmMapper' => 'Eye4web\ZfcUser\Pm\Factory\Mapper\DoctrineORM\PmMapperFactory',
         ],
         'invokables' => [
             'Eye4web\ZfcUser\Pm\Form\NewConversationForm' => 'Eye4web\ZfcUser\Pm\Form\NewConversationForm',
             'Eye4web\ZfcUser\Pm\Form\NewMessageForm' => 'Eye4web\ZfcUser\Pm\Form\NewMessageForm',
-            'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm' => 'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm'
+            'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm' => 'Eye4web\ZfcUser\Pm\Form\DeleteConversationsForm',
         ],
     ],
     'controllers' => [
         'factories' => [
-            'Eye4web\ZfcUser\Pm\Controller\PmController' => 'Eye4web\ZfcUser\Pm\Factory\Controller\PmControllerFactory'
-        ]
+            'Eye4web\ZfcUser\Pm\Controller\PmController' => 'Eye4web\ZfcUser\Pm\Factory\Controller\PmControllerFactory',
+        ],
     ],
     'view_helpers' => [
         'factories' => [
-            'ZfcUserPm' => 'Eye4web\ZfcUser\Pm\Factory\View\Helper\ZfcUserPmHelperFactory'
-        ]
+            'ZfcUserPm' => 'Eye4web\ZfcUser\Pm\Factory\View\Helper\ZfcUserPmHelperFactory',
+        ],
     ],
     'router' => [
         'routes' => [
@@ -88,21 +88,21 @@ return [
                                             ],
                                             'constraints' => [
                                                 'conversationId' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
-                                            ]
+                                            ],
                                         ],
                                     ],
-                                ]
+                                ],
                             ],
-                        ]
+                        ],
                     ],
-                ]
-            ]
+                ],
+            ],
         ],
     ],
 
     'view_manager' => [
         'template_path_stack' => [
-            __DIR__ . '/../view',
+            __DIR__.'/../view',
         ],
     ],
 
@@ -111,14 +111,14 @@ return [
             'eye4web_zfcuser_pm_driver' => [
                 'class' => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
                 'paths' => [
-                    'default' => __DIR__ . '/doctrine',
+                    'default' => __DIR__.'/doctrine',
                 ],
             ],
             'orm_default' => [
                 'drivers' => [
-                    'Eye4web\ZfcUser\Pm\Entity' => 'eye4web_zfcuser_pm_driver'
-                ]
-            ]
+                    'Eye4web\ZfcUser\Pm\Entity' => 'eye4web_zfcuser_pm_driver',
+                ],
+            ],
         ],
     ],
 ];

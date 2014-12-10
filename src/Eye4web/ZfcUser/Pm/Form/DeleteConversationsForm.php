@@ -34,7 +34,7 @@ class DeleteConversationsForm extends Form implements InputFilterProviderInterfa
             'options' => [
                 'disable_inarray_validator' => true,
                 'use_hidden_element' => false,
-            ]
+            ],
         ]);
 
         $this->add([
@@ -42,9 +42,9 @@ class DeleteConversationsForm extends Form implements InputFilterProviderInterfa
             'name' => 'csrf',
             'options' => [
                 'csrf_options' => [
-                    'timeout' => 999999999999
-                ]
-            ]
+                    'timeout' => 999999999999,
+                ],
+            ],
         ]);
 
         $this->add([
@@ -57,7 +57,7 @@ class DeleteConversationsForm extends Form implements InputFilterProviderInterfa
             ],
             'options' => [
                 'label' => 'Send',
-            ]
+            ],
         ]);
     }
 

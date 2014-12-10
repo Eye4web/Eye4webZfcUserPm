@@ -35,7 +35,7 @@ class Message implements MessageInterface
     public function __construct()
     {
         $this->id = Uuid::uuid4()->toString();
-        $this->date = new \DateTime;
+        $this->date = new \DateTime();
     }
 
     /**

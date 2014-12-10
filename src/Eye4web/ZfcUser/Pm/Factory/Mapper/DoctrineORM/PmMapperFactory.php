@@ -14,7 +14,7 @@ class PmMapperFactory implements FactoryInterface
     /**
      * Create mapper
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return PmMapper
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
@@ -29,6 +29,7 @@ class PmMapperFactory implements FactoryInterface
         $zfcUserOptions = $serviceLocator->get('zfcuser_module_options');
 
         $mapper = new PmMapper($objectManager, $moduleOptions, $zfcUserOptions);
+
         return $mapper;
     }
 }

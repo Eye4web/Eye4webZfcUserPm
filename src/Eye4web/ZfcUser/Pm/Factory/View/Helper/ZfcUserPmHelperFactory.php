@@ -11,7 +11,7 @@ class ZfcUserPmHelperFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $helperLocator
+     * @param  ServiceLocatorInterface $helperLocator
      * @return ConfigHelper|mixed
      */
     public function createService(ServiceLocatorInterface $helperLocator)

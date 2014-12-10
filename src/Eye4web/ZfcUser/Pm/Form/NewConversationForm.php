@@ -34,7 +34,7 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 'label' => 'Headline',
             ],
             'attributes' => [
-                'class' => 'form-control'
+                'class' => 'form-control',
             ],
             'type'  => 'Text',
         ]);
@@ -42,7 +42,7 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
         $this->add([
             'name' => 'message',
             'attributes' => [
-                'class' => 'form-control'
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Message',
@@ -63,9 +63,9 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
             'name' => 'csrf',
             'options' => [
                 'csrf_options' => [
-                    'timeout' => 999999999999
-                ]
-            ]
+                    'timeout' => 999999999999,
+                ],
+            ],
         ]);
 
         $this->add([
@@ -78,7 +78,7 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
             ],
             'options' => [
                 'label' => 'Send',
-            ]
+            ],
         ]);
     }
 
@@ -99,7 +99,7 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 ],
                 'filters'  => [
                     [
-                        'name' => 'StripTags'
+                        'name' => 'StripTags',
                     ],
                     [
                         'name' => 'StringTrim'
@@ -120,7 +120,7 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 ],
                 'filters'  => [
                     [
-                        'name' => 'StripTags'
+                        'name' => 'StripTags',
                     ],
                     [
                         'name' => 'StringTrim'
@@ -132,7 +132,7 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 'required' => true,
                 'filters'  => [
                     [
-                        'name' => 'StripTags'
+                        'name' => 'StripTags',
                     ],
                     [
                         'name' => 'StringTrim'

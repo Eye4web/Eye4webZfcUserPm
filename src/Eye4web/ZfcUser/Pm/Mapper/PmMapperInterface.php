@@ -25,20 +25,20 @@ use ZfcUser\Entity\UserInterface;
 interface PmMapperInterface
 {
     /**
-     * @param string $userId
+     * @param  string                  $userId
      * @return ConversationInterface[]
      */
     public function getUserConversations($userId);
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return MessageInterface[]
      */
     public function getMessages(ConversationInterface $conversation);
 
     /**
-     * @param ConversationInterface $conversation
-     * @param UserInterface $user
+     * @param  ConversationInterface $conversation
+     * @param  UserInterface         $user
      * @return mixed
      */
     public function markRead(ConversationInterface $conversation, UserInterface $user);
@@ -46,8 +46,8 @@ interface PmMapperInterface
     /**
      * Note: This method doesn't delete from the database,
      * but sets a deleted flag on the ConversationReceiver entity
-     * @param array $conversationsIds
-     * @param UserInterface $user
+     * @param  array         $conversationsIds
+     * @param  UserInterface $user
      * @return mixed
      */
     public function deleteConversations(array $conversationsIds, UserInterface $user);
@@ -58,13 +58,13 @@ interface PmMapperInterface
     public function getUsers();
 
     /**
-     * @param string $conversationId
+     * @param  string                $conversationId
      * @return ConversationInterface
      */
     public function getConversation($conversationId);
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return UserInterface[]
      */
     public function getParticipants(ConversationInterface $conversation);
@@ -75,35 +75,35 @@ interface PmMapperInterface
     public function markUnread(ConversationInterface $conversation);
 
     /**
-     * @param ConversationInterface $conversation
-     * @param UserInterface $user
+     * @param  ConversationInterface $conversation
+     * @param  UserInterface         $user
      * @return bool
      */
     public function isUnread(ConversationInterface $conversation, UserInterface $user);
 
     /**
-     * @param array $data
-     * @param UserInterface $user
+     * @param  array                 $data
+     * @param  UserInterface         $user
      * @return ConversationInterface
      */
     public function newConversation(array $data, UserInterface $user);
 
     /**
-     * @param ConversationInterface $conversation
-     * @param string $message
-     * @param UserInterface $user
+     * @param  ConversationInterface $conversation
+     * @param  string                $message
+     * @param  UserInterface         $user
      * @return MessageInterface
      */
     public function newMessage(ConversationInterface$conversation, $message, UserInterface $user);
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return MessageInterface
      */
     public function getLastReply(ConversationInterface $conversation);
 
     /**
-     * @param UserInterface $user
+     * @param  UserInterface           $user
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user);

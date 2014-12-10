@@ -18,14 +18,17 @@
 
 namespace Eye4web\ZfcUser\Pm\Service;
 
-use Application\Entity\User;
 use Eye4web\ZfcUser\Pm\Mapper\PmMapperInterface;
 use Eye4web\ZfcUser\Pm\Entity\ConversationInterface;
 use Eye4web\ZfcUser\Pm\Entity\MessageInterface;
 use ZfcUser\Entity\UserInterface;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerAwareTrait;
 
-class PmService implements PmServiceInterface
+class PmService implements PmServiceInterface, EventManagerAwareInterface
 {
+    use EventManagerAwareTrait;
+
     /** @var PmMapperInterface */
     protected $pmMapper;
 
@@ -38,40 +41,62 @@ class PmService implements PmServiceInterface
     }
 
     /**
-     * @param string $userId
+     * @param  string                  $userId
      * @return ConversationInterface[]
      */
     public function getUserConversations($userId)
     {
-        return $this->pmMapper->getUserConversations($userId);
+        $conversations = $this->pmMapper->getUserConversations($userId);
+
+        $this->getEventManager()->trigger('getUserConversations', $this, [
+            'conversations' => $conversations
+        ]);
+
+        return $conversations;
     }
 
     /**
-     * @param array $conversationsIds
-     * @param UserInterface $user
+     * @param  array         $conversationsIds
+     * @param  UserInterface $user
      * @return void
      */
     public function deleteConversations(array $conversationsIds, UserInterface $user)
     {
+        $this->getEventManager()->trigger('deleteConversations.pre', $this, [
+            'conversationsIds' => $conversationsIds,
+            'user' => $user
+        ]);
+
         $this->pmMapper->deleteConversations($conversationsIds, $user);
     }
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return MessageInterface[]
      */
     public function getMessages(ConversationInterface $conversation)
     {
-        return $this->pmMapper->getMessages($conversation);
+        $messages = $this->pmMapper->getMessages($conversation);
+
+        $this->getEventManager()->trigger('getMessages', $this, [
+            'messages' => $messages
+        ]);
+
+        return $messages;
     }
 
     /**
-     * @param ConversationInterface $conversation
-     * @param UserInterface $user
+     * @param  ConversationInterface $conversation
+     * @param  UserInterface         $user
      * @return mixed|void
      */
     public function markRead(ConversationInterface $conversation, UserInterface $user)
     {
+        $this->getEventManager()->trigger('markRead.pre', $this, [
+            'conversation' => $conversation,
+            'user' => $user
+        ]);
+
         $this->pmMapper->markRead($conversation, $user);
     }
 
@@ -85,38 +110,66 @@ class PmService implements PmServiceInterface
         foreach ($dbUsers as $user) {
             $users[] = [
                 'id' => $user->getId(),
-                'text' => $user->getDisplayName()
+                'text' => $user->getDisplayName(),
             ];
         }
+
+        $this->getEventManager()->trigger('getUsers', $this, [
+            'users' => $users
+        ]);
+
         return $users;
     }
 
     /**
-     * @param string $conversationId
+     * @param  string                $conversationId
      * @return ConversationInterface
      */
     public function getConversation($conversationId)
     {
-        return $this->pmMapper->getConversation($conversationId);
+        $conversation = $this->pmMapper->getConversation($conversationId);
+
+        $this->getEventManager()->trigger('getConversation', $this, [
+            'conversation' => $conversation
+        ]);
+
+        return $conversation;
     }
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return UserInterface[]
      */
     public function getParticipants(ConversationInterface $conversation)
     {
-        return $this->pmMapper->getParticipants($conversation);
+        $participants = $this->pmMapper->getParticipants($conversation);
+
+        $this->getEventManager()->trigger('getParticipants', $this, [
+            'participants' => $participants
+        ]);
+
+        return $participants;
     }
 
     /**
-     * @param ConversationInterface $conversation
-     * @param UserInterface $user
+     * @param  ConversationInterface $conversation
+     * @param  UserInterface         $user
      * @return bool
      */
     public function isUnread(ConversationInterface $conversation, UserInterface $user)
     {
-        return $this->pmMapper->isUnread($conversation, $user);
+        $this->getEventManager()->trigger('isUnread.pre', $this, [
+            'conversation' => $conversation,
+            'user' => $user
+        ]);
+
+        $isUnread = $this->pmMapper->isUnread($conversation, $user);
+
+        $this->getEventManager()->trigger('isUnread', $this, [
+            'isUnread' => $isUnread
+        ]);
+
+        return $isUnread;
     }
 
     /**
@@ -124,56 +177,94 @@ class PmService implements PmServiceInterface
      */
     public function markUnread(ConversationInterface $conversation)
     {
+        $this->getEventManager()->trigger('markUnread.pre', $this, [
+            'conversation' => $conversation
+        ]);
+
         $this->pmMapper->markUnread($conversation);
     }
 
     /**
-     * @param array $data
-     * @param UserInterface $user
+     * @param  array                 $data
+     * @param  UserInterface         $user
      * @return ConversationInterface
      */
     public function newConversation(array $data, UserInterface $user)
     {
+        $this->getEventManager()->trigger('newConversation.pre', $this, [
+            'data' => $data,
+            'user' => $user,
+        ]);
+
         $conversation = $this->pmMapper->newConversation($data, $user);
 
         // Mark it read for the sending user
         $this->markRead($conversation, $user);
 
+        $this->getEventManager()->trigger('newConversation', $this, [
+            'conversation' => $conversation,
+            'user' => $user,
+        ]);
+
         return $conversation;
     }
 
     /**
-     * @param ConversationInterface $conversation
-     * @param string $message
-     * @param UserInterface $user
+     * @param  ConversationInterface $conversation
+     * @param  string                $message
+     * @param  UserInterface         $user
      * @return MessageInterface
      */
     public function newMessage(ConversationInterface $conversation, $message, UserInterface $user)
     {
+        $this->getEventManager()->trigger('newMessage.pre', $this, [
+            'conversation' => $conversation,
+            'message' => $message,
+            'user' => $user,
+        ]);
+
         $message = $this->pmMapper->newMessage($conversation, $message, $user);
 
         $this->markUnread($conversation);
         // Mark it read for the sending user
         $this->markRead($conversation, $user);
 
+        $this->getEventManager()->trigger('newMessage', $this, [
+            'conversation' => $conversation,
+            'message' => $message,
+            'user' => $user,
+        ]);
+
         return $message;
     }
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return MessageInterface
      */
     public function getLastReply(ConversationInterface $conversation)
     {
-        return $this->pmMapper->getLastReply($conversation);
+        $lastReply = $this->pmMapper->getLastReply($conversation);
+
+        $this->getEventManager()->trigger('getLastReply', $this, [
+            'lastReply' => $lastReply,
+        ]);
+
+        return $lastReply;
     }
 
     /**
-     * @param UserInterface $user
+     * @param  UserInterface           $user
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user)
     {
-        return $this->pmMapper->getUnreadConversations($user);
+        $unreadConversations = $this->pmMapper->getUnreadConversations($user);
+
+        $this->getEventManager()->trigger('getUnreadConversations', $this, [
+            'unreadConversations' => $unreadConversations,
+        ]);
+
+        return $unreadConversations;
     }
 }

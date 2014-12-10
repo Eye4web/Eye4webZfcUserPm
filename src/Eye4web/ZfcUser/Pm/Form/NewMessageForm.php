@@ -31,7 +31,7 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
         $this->add([
             'name' => 'message',
             'attributes' => [
-                'class' => 'form-control'
+                'class' => 'form-control',
             ],
             'type'  => 'Textarea',
         ]);
@@ -41,9 +41,9 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
             'name' => 'csrf',
             'options' => [
                 'csrf_options' => [
-                    'timeout' => 999999999999
-                ]
-            ]
+                    'timeout' => 999999999999,
+                ],
+            ],
         ]);
 
         $this->add([
@@ -56,7 +56,7 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
             ],
             'options' => [
                 'label' => 'Send',
-            ]
+            ],
         ]);
     }
 
@@ -77,7 +77,7 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
                 ],
                 'filters'  => [
                     [
-                        'name' => 'StripTags'
+                        'name' => 'StripTags',
                     ],
                     [
                         'name' => 'StringTrim'

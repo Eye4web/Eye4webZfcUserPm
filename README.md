@@ -3,7 +3,8 @@ Eye4webZfcUserPm
 
 Introduction
 ------------
-Eye4webZfcUserPm is a basic private message module which allows for sending of messages between users
+Eye4webZfcUserPm is a basic private message module which allows for sending of messages between users.   
+
 By default this module works with Doctrine ORM(through the DoctrineORM mapper). 
 It's very easy to add your own mapper, ZendDb for example.   
 1. Create your custom mapper   
@@ -18,9 +19,10 @@ Functionality
 * Group conversations
 * Delete conversations(not deleted from database, only from user)
 
-Dependecies
+Requirements
 ------------
 #### Hard
+- PHP 5.4
 - [Eye4webBase](https://github.com/Eye4web/Eye4webBase)
 - [ZfcUser](https://github.com/ZF-Commons/ZfcUser)
 

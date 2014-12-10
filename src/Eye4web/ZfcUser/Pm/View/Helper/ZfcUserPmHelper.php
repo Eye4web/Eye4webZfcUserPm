@@ -34,7 +34,7 @@ class ZfcUserPmHelper extends AbstractHelper
     protected $zfcUserMapper;
 
     /**
-     * @param PmServiceInterface $pmService
+     * @param PmServiceInterface     $pmService
      * @param ZfcUserMapperInterface $zfcUserMapper
      */
     public function __construct(PmServiceInterface $pmService, ZfcUserMapperInterface $zfcUserMapper)
@@ -61,7 +61,7 @@ class ZfcUserPmHelper extends AbstractHelper
     }
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return UserInterface[]
      */
     public function getParticipants(ConversationInterface $conversation)
@@ -70,7 +70,7 @@ class ZfcUserPmHelper extends AbstractHelper
     }
 
     /**
-     * @param ConversationInterface $conversation
+     * @param  ConversationInterface $conversation
      * @return MessageInterface
      */
     public function getLastReply(ConversationInterface $conversation)
@@ -79,8 +79,8 @@ class ZfcUserPmHelper extends AbstractHelper
     }
 
     /**
-     * @param ConversationInterface $conversation
-     * @param UserInterface $user
+     * @param  ConversationInterface $conversation
+     * @param  UserInterface         $user
      * @return bool
      */
     public function isUnread(ConversationInterface $conversation, UserInterface $user)
@@ -89,7 +89,7 @@ class ZfcUserPmHelper extends AbstractHelper
     }
 
     /**
-     * @param UserInterface $user
+     * @param  UserInterface           $user
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user)
