@@ -555,44 +555,66 @@ class PmMapperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->mapper->isUnread($conversation, $user));
     }
 
-    /**
-     * @covers Eye4web\ZfcUser\Pm\Mapper\DoctrineORM\PmMapper::newConversation
-     *
-    public function testNewConversation()
-    {
-        $data = [
-            'headline' => 'foo',
-            'message' => 'bar',
-            'to' => '2,3'
-        ];
-
-        $now = new \DateTime('now');
-
-        $user = new User;
-        $user->setId(1);
-
-        $this->options->expects($this->at(0))
-             ->method('getMessageEntity')
-             ->will($this->returnValue('Eye4web\ZfcUser\Pm\Entity\Message'));
-
-        $this->options->expects($this->at(1))
-             ->method('getConversationEntity')
-             ->will($this->returnValue('Eye4web\ZfcUser\Pm\Entity\Conversation'));
-
-        $this->options->expects($this->at(2))
-             ->method('getConversationReceiverEntity')
-             ->will($this->returnValue('Eye4web\ZfcUser\Pm\Entity\getConversationReceiver'));
-
-        $conversation = new Conversation;
-        $conversation->setId('a7b663cf-98b2-4795-8a3f-1e524d176727');
-        $conversation->setHeadline($data['headline']);
-        $conversation->setDate($now);
-
-        $objectRepository = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
-        $this->objectManager->expects($this->any())
-                            ->method('persist')
-                            ->with($conversation);
-
-        $this->mapper->newConversation($data, $user);
-    }*/
+//    /**
+//     * @covers Eye4web\ZfcUser\Pm\Mapper\DoctrineORM\PmMapper::newConversation
+//     */
+//    public function testNewConversation()
+//    {
+//        $data = [
+//            'headline' => 'foo',
+//            'message' => 'bar',
+//            'to' => '2,3'
+//        ];
+//
+//        $now = new \DateTime('now');
+//
+//        $user = new User;
+//        $user->setId(1);
+//
+//        $this->options->expects($this->at(0))
+//             ->method('getMessageEntity')
+//             ->will($this->returnValue('Eye4web\ZfcUser\Pm\Entity\Message'));
+//
+//        $this->options->expects($this->at(1))
+//             ->method('getConversationEntity')
+//             ->will($this->returnValue('Eye4web\ZfcUser\Pm\Entity\Conversation'));
+//
+//        $this->options->expects($this->at(2))
+//             ->method('getConversationReceiverEntity')
+//             ->will($this->returnValue('Eye4web\ZfcUser\Pm\Entity\ConversationReceiver'));
+//
+//        $conversation =  new Conversation;
+//        $conversation->setHeadline($data['headline']);
+// 
+//        $objectRepository = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
+//        $this->objectManager->expects($this->any())
+//                            ->method('persist')
+//                            ->with($conversation);
+//                            
+//        $message =  new Message;
+//        $message->setMessage($data['message']);
+//        $message->setFrom($user->getId());
+//        $message->setConversation($conversation);
+//        
+//        $this->objectManager->expects($this->any())
+//                            ->method('persist')
+//                            ->with($message);
+//                            
+//        $receivers = explode(",", $data['to']);
+//        $receivers[] = $user->getId();
+//        foreach ($receivers as $receiver) {
+//	    $conversationReceiver = new ConversationReceiver;
+//	    $conversationReceiver->setTo($receiver);
+//            $conversationReceiver->setConversation($conversation);
+//
+//	    $this->objectManager->expects($this->any())
+//                 ->method('persist')
+//                 ->with($conversationReceiver);
+//	}
+//        
+//        $this->objectManager->expects($this->any())
+//                       ->method('flush');
+//
+//        $this->mapper->newConversation($data, $user);
+//    }
 }
