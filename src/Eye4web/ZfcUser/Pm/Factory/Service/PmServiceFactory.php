@@ -17,8 +17,8 @@ class PmServiceFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /**
- * @var ModuleOptions $moduleOptions 
-*/
+         * @var ModuleOptions $moduleOptions
+         */
         $moduleOptions = $serviceLocator->get('Eye4web\ZfcUser\Pm\Options\ModuleOptions');
 
         $mapper = new PmService($serviceLocator->get($moduleOptions->getPmMapper()));

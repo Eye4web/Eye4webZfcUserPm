@@ -64,7 +64,8 @@ class PmController extends AbstractActionController
      * @param ModuleOptionsInterface  $options
      * @param ZfcUserModuleOptions    $zfcUserOptions
      */
-    public function __construct(PmServiceInterface $pmService,
+    public function __construct(
+        PmServiceInterface $pmService,
         NewConversationForm $newConversationForm,
         NewMessageForm $newMessageForm,
         DeleteConversationsForm $deleteConversationsForm,

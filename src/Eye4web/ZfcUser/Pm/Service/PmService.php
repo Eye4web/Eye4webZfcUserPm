@@ -30,7 +30,7 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     use EventManagerAwareTrait;
 
     /**
- * @var PmMapperInterface 
+ * @var PmMapperInterface
 */
     protected $pmMapper;
 
@@ -51,7 +51,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $conversations = $this->pmMapper->getUserConversations($userId);
 
         $this->getEventManager()->trigger(
-            'getUserConversations', $this, [
+            'getUserConversations',
+            $this,
+            [
             'conversations' => $conversations
             ]
         );
@@ -67,7 +69,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     public function deleteConversations(array $conversationsIds, UserInterface $user)
     {
         $this->getEventManager()->trigger(
-            'deleteConversations.pre', $this, [
+            'deleteConversations.pre',
+            $this,
+            [
             'conversationsIds' => $conversationsIds,
             'user' => $user
             ]
@@ -85,7 +89,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $messages = $this->pmMapper->getMessages($conversation);
 
         $this->getEventManager()->trigger(
-            'getMessages', $this, [
+            'getMessages',
+            $this,
+            [
             'messages' => $messages
             ]
         );
@@ -101,7 +107,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     public function markRead(ConversationInterface $conversation, UserInterface $user)
     {
         $this->getEventManager()->trigger(
-            'markRead.pre', $this, [
+            'markRead.pre',
+            $this,
+            [
             'conversation' => $conversation,
             'user' => $user
             ]
@@ -125,7 +133,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         }
 
         $this->getEventManager()->trigger(
-            'getUsers', $this, [
+            'getUsers',
+            $this,
+            [
             'users' => $users
             ]
         );
@@ -142,7 +152,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $conversation = $this->pmMapper->getConversation($conversationId);
 
         $this->getEventManager()->trigger(
-            'getConversation', $this, [
+            'getConversation',
+            $this,
+            [
             'conversation' => $conversation
             ]
         );
@@ -159,7 +171,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $participants = $this->pmMapper->getParticipants($conversation);
 
         $this->getEventManager()->trigger(
-            'getParticipants', $this, [
+            'getParticipants',
+            $this,
+            [
             'participants' => $participants
             ]
         );
@@ -175,7 +189,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     public function isUnread(ConversationInterface $conversation, UserInterface $user)
     {
         $this->getEventManager()->trigger(
-            'isUnread.pre', $this, [
+            'isUnread.pre',
+            $this,
+            [
             'conversation' => $conversation,
             'user' => $user
             ]
@@ -184,7 +200,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $isUnread = $this->pmMapper->isUnread($conversation, $user);
 
         $this->getEventManager()->trigger(
-            'isUnread', $this, [
+            'isUnread',
+            $this,
+            [
             'isUnread' => $isUnread
             ]
         );
@@ -198,7 +216,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     public function markUnread(ConversationInterface $conversation)
     {
         $this->getEventManager()->trigger(
-            'markUnread.pre', $this, [
+            'markUnread.pre',
+            $this,
+            [
             'conversation' => $conversation
             ]
         );
@@ -214,7 +234,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     public function newConversation(array $data, UserInterface $user)
     {
         $this->getEventManager()->trigger(
-            'newConversation.pre', $this, [
+            'newConversation.pre',
+            $this,
+            [
             'data' => $data,
             'user' => $user,
             ]
@@ -226,7 +248,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $this->markRead($conversation, $user);
 
         $this->getEventManager()->trigger(
-            'newConversation', $this, [
+            'newConversation',
+            $this,
+            [
             'conversation' => $conversation,
             'user' => $user,
             ]
@@ -244,7 +268,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     public function newMessage(ConversationInterface $conversation, $message, UserInterface $user)
     {
         $this->getEventManager()->trigger(
-            'newMessage.pre', $this, [
+            'newMessage.pre',
+            $this,
+            [
             'conversation' => $conversation,
             'message' => $message,
             'user' => $user,
@@ -258,7 +284,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $this->markRead($conversation, $user);
 
         $this->getEventManager()->trigger(
-            'newMessage', $this, [
+            'newMessage',
+            $this,
+            [
             'conversation' => $conversation,
             'message' => $message,
             'user' => $user,
@@ -277,7 +305,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $lastReply = $this->pmMapper->getLastReply($conversation);
 
         $this->getEventManager()->trigger(
-            'getLastReply', $this, [
+            'getLastReply',
+            $this,
+            [
             'lastReply' => $lastReply,
             ]
         );
@@ -294,7 +324,9 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         $unreadConversations = $this->pmMapper->getUnreadConversations($user);
 
         $this->getEventManager()->trigger(
-            'getUnreadConversations', $this, [
+            'getUnreadConversations',
+            $this,
+            [
             'unreadConversations' => $unreadConversations,
             ]
         );

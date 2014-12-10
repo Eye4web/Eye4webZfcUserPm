@@ -17,8 +17,8 @@ class ZfcUserPmHelperFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $helperLocator)
     {
         /**
- * @var ServiceLocatorInterface $serviceLocator 
-*/
+         * @var ServiceLocatorInterface $serviceLocator
+         */
         $serviceLocator = $helperLocator->getServiceLocator();
 
         $pmService = $serviceLocator->get('Eye4web\ZfcUser\Pm\Service\PmService');

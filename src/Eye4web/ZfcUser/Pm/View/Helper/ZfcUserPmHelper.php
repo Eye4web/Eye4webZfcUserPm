@@ -28,12 +28,12 @@ use ZfcUser\Mapper\UserInterface as ZfcUserMapperInterface;
 class ZfcUserPmHelper extends AbstractHelper
 {
     /**
- * @var PmServiceInterface  
+ * @var PmServiceInterface
 */
     protected $pmService;
 
     /**
- * @var ZfcUserMapperInterface  
+ * @var ZfcUserMapperInterface
 */
     protected $zfcUserMapper;
 
