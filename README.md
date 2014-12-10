@@ -1,5 +1,12 @@
 Eye4webZfcUserPm
 =======
+[![Build Status](https://travis-ci.org/Eye4web/Eye4webZfcUserPm.svg?branch=master)](https://travis-ci.org/Eye4web/Eye4webZfcUserPm)
+[![Code Climate](https://codeclimate.com/github/Eye4web/Eye4webZfcUserPm/badges/gpa.svg)](https://codeclimate.com/github/Eye4web/Eye4webZfcUserPm)
+[![Test Coverage](https://codeclimate.com/github/Eye4web/Eye4webZfcUserPm/badges/coverage.svg)](https://codeclimate.com/github/Eye4web/Eye4webZfcUserPm)
+[![Latest Stable Version](https://poser.pugx.org/eye4web/eye4web-zfc-user-pm/v/stable.svg)](https://packagist.org/packages/eye4web/eye4web-zfc-user-pm)
+[![Latest Unstable Version](https://poser.pugx.org/eye4web/eye4web-zfc-user-pm/v/unstable.svg)](https://packagist.org/packages/eye4web/eye4web-zfc-user-pm)
+[![Total Downloads](https://poser.pugx.org/eye4web/eye4web-zfc-user-pm/downloads.svg)](https://packagist.org/packages/eye4web/eye4web-zfc-user-pm)
+[![License](https://poser.pugx.org/eye4web/eye4web-zfc-user-pm/license.svg)](https://packagist.org/packages/eye4web/eye4web-zfc-user-pm)
 
 Introduction
 ------------
