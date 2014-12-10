@@ -17,3 +17,4 @@
 - undo add setDeleted($deleted) in ConversationReceiver because already in there.
 - added Form\DeleteConversationsForm test
 - Service\PmService  test fully implemented
+- added Factory\View\Helper\ZfcUserPmHelperFactory test
