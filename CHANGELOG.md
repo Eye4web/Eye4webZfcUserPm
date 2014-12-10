@@ -19,4 +19,5 @@
 - Service\PmService  test fully implemented
 - added Factory\View\Helper\ZfcUserPmHelperFactory test
 - added Factory\Service\PmServiceFactory test
-- added Factory\Mapper\DoctrineORM\PmMapperFactory tes
+- added Factory\Mapper\DoctrineORM\PmMapperFactory test
+- added Factory\Options\ModuleOptionsFactory test

@@ -20,7 +20,7 @@ class ZfcUserPmHelperTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        /** @var \Eye4web\Zf2Board\Service\AuthorService $pmService */
+        /** @var \Eye4web\Zf2User\Pm\Service\AuthorService $pmService */
         $pmService = $this->getMockBuilder('Eye4web\ZfcUser\Pm\Service\PmService')
                               ->disableOriginalConstructor()
                               ->getMock();

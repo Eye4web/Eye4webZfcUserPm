@@ -1,6 +1,6 @@
 <?php
 
-namespace Eye4web\Zf2BoardTest\Factory\Mapper\DoctrineORM;
+namespace Eye4web\Zf2UserPmTest\Factory\Mapper\DoctrineORM;
 
 use Eye4web\ZfcUser\Pm\Factory\Mapper\DoctrineORM\PmMapperFactory;
 use PHPUnit_Framework_TestCase;
@@ -20,10 +20,13 @@ class PmMapperFactoryTest extends PHPUnit_Framework_TestCase
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $this->serviceLocator = $serviceLocator;
 
-        $factory = new PmMapperFactory;
+        $factory = new PmMapperFactory();
         $this->factory = $factory;
     }
 
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Factory\Mapper\DoctrineORM\PmMapperFactory::createService
+     */
     public function testCreateService()
     {
         $moduleOptions = $this->getMockBuilder('Eye4web\ZfcUser\Pm\Options\ModuleOptions')
@@ -34,7 +37,7 @@ class PmMapperFactoryTest extends PHPUnit_Framework_TestCase
                              ->method('get')
                              ->with('Eye4web\ZfcUser\Pm\Options\ModuleOptions')
                              ->willReturn($moduleOptions);
-                             
+
         $objectManager = $this->getMockBuilder('Doctrine\ORM\EntityManager')
                               ->disableOriginalConstructor()
                               ->getMock();
@@ -43,8 +46,8 @@ class PmMapperFactoryTest extends PHPUnit_Framework_TestCase
                              ->method('get')
                              ->with('Doctrine\ORM\EntityManager')
                              ->willReturn($objectManager);
-                        
-        $options = $this->getMock('ZfcUser\Options\ModuleOptions');     
+
+        $options = $this->getMock('ZfcUser\Options\ModuleOptions');
         $this->serviceLocator->expects($this->at(2))
                              ->method('get')
                              ->with('zfcuser_module_options')

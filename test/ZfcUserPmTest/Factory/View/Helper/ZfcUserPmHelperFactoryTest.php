@@ -1,6 +1,6 @@
 <?php
 
-namespace Eye4web\Zf2BoardTest\Factory\View\Helper;
+namespace Eye4web\Zf2UserPmTest\Factory\View\Helper;
 
 use Eye4web\ZfcUser\Pm\Factory\View\Helper\ZfcUserPmHelperFactory;
 use PHPUnit_Framework_TestCase;
@@ -34,10 +34,13 @@ class ZfcUserPmHelperFactoryTest extends PHPUnit_Framework_TestCase
                        ->method('getServiceLocator')
                        ->willReturn($serviceLocator);
 
-        $factory = new ZfcUserPmHelperFactory;
+        $factory = new ZfcUserPmHelperFactory();
         $this->factory = $factory;
     }
 
+    /**
+     * @covers Eye4web\ZfcUser\Pm\Factory\View\Helper\ZfcUserPmHelperFactory::createService
+     */
     public function testCreateService()
     {
         $pmService = $this->getMockBuilder('Eye4web\ZfcUser\Pm\Service\PmService')

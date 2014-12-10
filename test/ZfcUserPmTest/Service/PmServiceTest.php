@@ -18,7 +18,7 @@ class PmServiceTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        /** @var \Eye4web\Zf2Board\Mapper\PostMapperInterface $mapper */
+        /** @var \Eye4web\Zf2User\Pm\Mapper\PostMapperInterface $mapper */
         $mapper = $this->getMock('\Eye4web\ZfcUser\Pm\Mapper\PmMapperInterface');
         $this->mapper = $mapper;
 
