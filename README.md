@@ -64,9 +64,6 @@ Installation
     
 Extensions
 ------------
-- [Eye4webZfcUserPmFolders](https://github.com/Eye4web/Eye4webZfcUserPmFolders)    
-Put conversations into folders
-- [Eye4webZfcUserPmSearch](https://github.com/Eye4web/Eye4webZfcUserPmSearch)   
-Search for conversations
-- [Eye4webZfcUserPmStar](https://github.com/Eye4web/Eye4webZfcUserPmSearch)   
-Star important conversations
+- [Eye4webZfcUserPmFolders](https://github.com/Eye4web/Eye4webZfcUserPmFolders) - Put conversations into folders
+- [Eye4webZfcUserPmSearch](https://github.com/Eye4web/Eye4webZfcUserPmSearch) - Search for conversations
+- [Eye4webZfcUserPmStar](https://github.com/Eye4web/Eye4webZfcUserPmSearch) - Star important conversations
