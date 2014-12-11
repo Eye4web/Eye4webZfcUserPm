@@ -41,6 +41,8 @@
 
 - added
  ```
- "codeclimate/php-test-reporter": "~0.*"
+ "codeclimate/php-test-reporter": "0.*"
  ```
  to require-dev in composer.json
+
+- adding Controller\PmController test
