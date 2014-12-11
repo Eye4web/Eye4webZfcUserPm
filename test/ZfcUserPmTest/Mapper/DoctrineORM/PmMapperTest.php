@@ -17,7 +17,7 @@ class PmMapperTest extends PHPUnit_Framework_TestCase
     /** @var \Doctrine\ORM\EntityManager */
     protected $objectManager;
 
-    /** @var \Eye4web\Zf2Board\Options\ModuleOptionsInterface */
+    /** @var \Eye4web\ZfcUser\Pm\Options\ModuleOptionsInterface */
     protected $options;
 
     /** @var \ZfcUser\Options\ModuleOptions */

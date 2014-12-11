@@ -27,4 +27,8 @@
 
 2014-12-11
 ----------
-- patch Factory\Controller\PmController test
+- patch Factory\Controller\PmController test because updated code.
+- update test/Bootstrap.php to support travis test and update composer.json to fix travis build by adding :
+```
+"zendframework/zend-serializer": "~2.1",
+```
