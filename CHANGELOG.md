@@ -32,3 +32,9 @@
 ```
 "zendframework/zend-serializer": "~2.1",
 ```
+- exclude "html-report" folder from phpcs check in .travis.yml
+- added
+```
+"zf-commons/zfc-user-doctrine-orm": "~1.0"
+```
+ to require-dev in composer.json
