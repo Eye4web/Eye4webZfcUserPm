@@ -38,3 +38,9 @@
 "zf-commons/zfc-user-doctrine-orm": "~1.0"
 ```
  to require-dev in composer.json
+
+- added
+ ```
+ "codeclimate/php-test-reporter": "~0.*"
+ ```
+ to require-dev in composer.json
