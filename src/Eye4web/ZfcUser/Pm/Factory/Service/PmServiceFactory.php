@@ -21,7 +21,7 @@ class PmServiceFactory implements FactoryInterface
          */
         $moduleOptions = $serviceLocator->get('Eye4web\ZfcUser\Pm\Options\ModuleOptions');
 
-        $mapper = new PmService($serviceLocator->get($moduleOptions->getPmMapper()));
+        $mapper = new PmService($serviceLocator->get($moduleOptions->getPmMapper()), $moduleOptions);
 
         return $mapper;
     }

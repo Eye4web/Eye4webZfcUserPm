@@ -119,15 +119,6 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
             [
                 'name' => 'message',
                 'required' => true,
-                'validators' => [
-                    [
-                        'name'    => 'StringLength',
-                        'options' => [
-                            'encoding' => 'UTF-8',
-                            'min' => 10,
-                        ],
-                    ],
-                ],
                 'filters'  => [
                     [
                         'name' => 'StripTags',

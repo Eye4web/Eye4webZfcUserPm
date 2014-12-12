@@ -20,7 +20,9 @@ namespace Eye4web\ZfcUser\Pm\Service;
 
 use Eye4web\ZfcUser\Pm\Mapper\PmMapperInterface;
 use Eye4web\ZfcUser\Pm\Entity\ConversationInterface;
+use Eye4web\ZfcUser\Pm\Entity\ConversationReceiverInterface;
 use Eye4web\ZfcUser\Pm\Entity\MessageInterface;
+use Eye4web\ZfcUser\Pm\Options\ModuleOptionsInterface;
 use ZfcUser\Entity\UserInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerAwareTrait;
@@ -30,16 +32,37 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
     use EventManagerAwareTrait;
 
     /**
- * @var PmMapperInterface
-*/
+     * @var PmMapperInterface
+     */
     protected $pmMapper;
+
+    /**
+     * @var ModuleOptionsInterface
+     */
+    protected $options;
+
+    /**
+     * @var string
+     */
+    protected $conversationEntity;
+
+    /**
+     * @var string
+     */
+    protected $conversationReceiverEntity;
+
+    /**
+     * @var string
+     */
+    protected $messageEntity;
 
     /**
      * @param PmMapperInterface $pmMapper
      */
-    public function __construct(PmMapperInterface $pmMapper)
+    public function __construct(PmMapperInterface $pmMapper, ModuleOptionsInterface $options)
     {
         $this->pmMapper = $pmMapper;
+        $this->options = $options;
     }
 
     /**
@@ -48,7 +71,12 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function getUserConversations($userId)
     {
-        $conversations = $this->pmMapper->getUserConversations($userId);
+        $userReceives = $this->pmMapper->getUserReceives($userId);
+
+        $conversations = [];
+        foreach ($userReceives as $receive) {
+            $conversations[] = $receive->getConversation();
+        }
 
         $this->getEventManager()->trigger(
             'getUserConversations',
@@ -77,7 +105,11 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
             ]
         );
 
-        $this->pmMapper->deleteConversations($conversationsIds, $user);
+        foreach ($conversationsIds as $conversationsId) {
+            $this->pmMapper->deleteConversation($conversationsId, $user);
+        }
+
+
     }
 
     /**
@@ -168,7 +200,12 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function getParticipants(ConversationInterface $conversation)
     {
-        $participants = $this->pmMapper->getParticipants($conversation);
+        $receivers = $this->pmMapper->getReceiversByConversation($conversation);
+
+        $participants = [];
+        foreach ($receivers as $receiver) {
+            $participants[] = $this->pmMapper->getUser($receiver->getTo());
+        }
 
         $this->getEventManager()->trigger(
             'getParticipants',
@@ -223,7 +260,11 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
             ]
         );
 
-        $this->pmMapper->markUnread($conversation);
+        $receivers = $this->pmMapper->getReceiversByConversation($conversation);
+
+        foreach ($receivers as $receiver) {
+            $this->pmMapper->markUnread($receiver);
+        }
     }
 
     /**
@@ -242,10 +283,34 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
             ]
         );
 
-        $conversation = $this->pmMapper->newConversation($data, $user);
+        /**
+         * @var ConversationInterface $conversation
+         */
+        $conversation = clone $this->getConversationEntity();
+        // Call __construct to generate a new id
+        $conversation->__construct();
+        $conversation->setHeadline($data['headline']);
+        $this->pmMapper->newConversation($conversation);
 
-        // Mark it read for the sending user
-        $this->markRead($conversation, $user);
+        $receivers = explode(",", $data['to']);
+        $receivers[] = $user->getId(); // we also want the sending user to be a receiver
+        foreach ($receivers as $receiver) {
+            $conversationReceiver = clone $this->getConversationReceiverEntity();
+            // Call __construct to generate a new id
+            $conversationReceiver->__construct();
+            $conversationReceiver->setTo($receiver);
+            $conversationReceiver->setConversation($conversation);
+
+            // The sending user should not have the message marked as unread
+            if ($receiver == $user->getId())
+            {
+                $conversationReceiver->setUnread(false);
+            }
+
+            $this->pmMapper->addReceiver($conversationReceiver);
+        }
+
+        $this->newMessage($conversation, $data['message'], $user);
 
         $this->getEventManager()->trigger(
             'newConversation',
@@ -261,23 +326,29 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
 
     /**
      * @param  ConversationInterface $conversation
-     * @param  string                $message
+     * @param  string                $messageText
      * @param  UserInterface         $user
      * @return MessageInterface
      */
-    public function newMessage(ConversationInterface $conversation, $message, UserInterface $user)
+    public function newMessage(ConversationInterface $conversation, $messageText, UserInterface $user)
     {
         $this->getEventManager()->trigger(
             'newMessage.pre',
             $this,
             [
             'conversation' => $conversation,
-            'message' => $message,
+            'message' => $messageText,
             'user' => $user,
             ]
         );
 
-        $message = $this->pmMapper->newMessage($conversation, $message, $user);
+        $message = clone $this->getMessageEntity();
+        // Call __construct to generate a new id
+        $message->__construct();
+        $message->setMessage($messageText);
+        $message->setFrom($user->getId());
+        $message->setConversation($conversation);
+        $message = $this->pmMapper->newMessage($message);
 
         $this->markUnread($conversation);
         // Mark it read for the sending user
@@ -321,7 +392,12 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
      */
     public function getUnreadConversations(UserInterface $user)
     {
-        $unreadConversations = $this->pmMapper->getUnreadConversations($user);
+        $unreadConversationReceivers = $this->pmMapper->getUnreadConversationReceivers($user);
+
+        $unreadConversations = [];
+        foreach ($unreadConversationReceivers as $receive) {
+            $unreadConversations[] = $receive->getConversation();
+        }
 
         $this->getEventManager()->trigger(
             'getUnreadConversations',
@@ -332,5 +408,68 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
         );
 
         return $unreadConversations;
+    }
+
+    /**
+     * @return ConversationInterface
+     */
+    public function getConversationEntity()
+    {
+        if (empty($this->conversationEntity)) {
+            $conversationEntityClass = $this->options->getConversationEntity();
+            $this->conversationEntity = new $conversationEntityClass;
+        }
+
+        return $this->conversationEntity;
+    }
+
+    /**
+     * @param ConversationInterface $conversationEntity
+     */
+    public function setConversationEntity(ConversationInterface $conversationEntity)
+    {
+        $this->conversationEntity = $conversationEntity;
+    }
+
+    /**
+     * @return ConversationReceiverInterface
+     */
+    public function getConversationReceiverEntity()
+    {
+        if (empty($this->conversationReceiverEntity)) {
+            $conversationReceiverClass = $this->options->getConversationReceiverEntity();
+            $this->conversationReceiverEntity = new $conversationReceiverClass;
+        }
+
+        return $this->conversationReceiverEntity;
+    }
+
+    /**
+     * @param ConversationReceiverInterface $conversationReceiverEntity
+     */
+    public function setConversationReceiverEntity(ConversationReceiverInterface $conversationReceiverEntity)
+    {
+        $this->conversationReceiverEntity = $conversationReceiverEntity;
+    }
+
+    /**
+     * @return MessageInterface
+     */
+    public function getMessageEntity()
+    {
+        if (empty($this->messageEntity)) {
+            $messageEntityClass = $this->options->getMessageEntity();
+            $this->messageEntity = new $messageEntityClass;
+        }
+
+        return $this->messageEntity;
+    }
+
+    /**
+     * @param MessageInterface $messageEntity
+     */
+    public function setMessageEntity(MessageInterface $messageEntity)
+    {
+        $this->messageEntity = $messageEntity;
     }
 }
