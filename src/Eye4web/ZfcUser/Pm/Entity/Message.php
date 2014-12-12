@@ -87,7 +87,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getId()
     {
@@ -103,7 +103,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMessage()
     {
@@ -111,7 +111,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @param mixed $message
+     * @param string $message
      */
     public function setMessage($message)
     {

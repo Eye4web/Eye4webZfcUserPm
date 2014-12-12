@@ -35,7 +35,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -43,7 +43,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @param mixed $date
+     * @param \DateTime $date
      */
     public function setDate($date)
     {
@@ -51,7 +51,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getHeadline()
     {
@@ -59,7 +59,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @param mixed $headline
+     * @param string $headline
      */
     public function setHeadline($headline)
     {
@@ -67,7 +67,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getId()
     {
@@ -75,7 +75,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @param mixed $id
+     * @param integer $id
      */
     public function setId($id)
     {

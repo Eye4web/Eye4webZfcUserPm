@@ -1,0 +1,27 @@
+<phpunit bootstrap="test/Bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="Eye4web ZfcUserPmTest">
+            <directory>./test</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory suffix=".php">./config</directory>
+                <file>./src/Eye4web/ZfcUser/Pm/Module.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Entity/ConversationInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Entity/ConversationReceiverInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Entity/MessageInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Service/PmServiceInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Options/ModuleOptionsInterface.php</file>
+                <file>./src/Eye4web/ZfcUser/Pm/Mapper/PmMapperInterface.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html" target="./test/html-report/" charset="UTF-8" yui="true" />
+    </logging>
+</phpunit>
