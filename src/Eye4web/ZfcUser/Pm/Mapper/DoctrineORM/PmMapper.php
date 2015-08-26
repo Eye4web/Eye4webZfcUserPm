@@ -231,7 +231,19 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function getUserReceives($userId)
     {
-        $userReceives = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy(['to' => $userId, 'deleted' => false]);
+        $queryBuilder = $this->objectManager->createQueryBuilder();
+        $queryBuilder->select('r')
+            ->from($this->options->getConversationReceiverEntity(), 'r')
+            ->from($this->options->getMessageEntity(), 'm')
+            ->leftJoin('r.conversation', 'c')
+            ->where('r.to = :to')
+            ->andWhere('m.conversation = c')
+            ->andWhere('r.deleted = false')
+            ->orderBy('m.date', 'DESC');
+
+        $queryBuilder->setParameter('to', $userId);
+
+        $userReceives = $queryBuilder->getQuery()->getResult();
 
         $this->getEventManager()->trigger(
             'getUserConversations',
