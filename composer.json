@@ -18,11 +18,6 @@
             "homepage": "http://eye4web.dk"
         }
     ],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "master-dev"
-        }
-    },
     "require": {
         "php": ">=5.4",
         "zf-commons/zfc-user": "~1.2",
