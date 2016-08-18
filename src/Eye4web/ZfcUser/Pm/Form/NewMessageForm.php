@@ -74,9 +74,6 @@ class NewMessageForm extends Form implements InputFilterProviderInterface
                 'required' => true,
                 'filters'  => [
                     [
-                        'name' => 'StripTags',
-                    ],
-                    [
                         'name' => 'StringTrim'
                     ],
                 ],

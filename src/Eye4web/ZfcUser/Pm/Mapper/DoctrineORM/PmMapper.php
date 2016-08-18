@@ -88,15 +88,23 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
      */
     public function getUnreadConversationReceivers(UserInterface $user)
     {
+        $findBy = [
+            'to' => $user->getId(),
+            'unread' => true,
+            'deleted' => false
+        ];
+        $findByObject = (object) $findBy;
+
         $this->getEventManager()->trigger(
             'getUnreadConversationReceivers.pre',
             $this,
             [
                 'user' => $user,
+                'findBy' => $findByObject,
             ]
         );
 
-        $conversationReceivers = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy(['to' => $user->getId(), 'unread' => true, 'deleted' => false]);
+        $conversationReceivers = $this->objectManager->getRepository($this->options->getConversationReceiverEntity())->findBy((array) $findByObject);
 
         $this->getEventManager()->trigger(
             'getUnreadConversationReceivers',
@@ -243,6 +251,14 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
 
         $queryBuilder->setParameter('to', $userId);
 
+        $this->getEventManager()->trigger(
+            'getUserConversations.pre',
+            $this,
+            [
+                'queryBuilder' => $queryBuilder
+            ]
+        );
+        
         $userReceives = $queryBuilder->getQuery()->getResult();
 
         $this->getEventManager()->trigger(

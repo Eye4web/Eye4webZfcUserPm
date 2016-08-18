@@ -109,9 +109,6 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 ],
                 'filters'  => [
                     [
-                        'name' => 'StripTags',
-                    ],
-                    [
                         'name' => 'StringTrim'
                     ],
                 ],
@@ -120,9 +117,6 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
                 'name' => 'message',
                 'required' => true,
                 'filters'  => [
-                    [
-                        'name' => 'StripTags',
-                    ],
                     [
                         'name' => 'StringTrim'
                     ],
