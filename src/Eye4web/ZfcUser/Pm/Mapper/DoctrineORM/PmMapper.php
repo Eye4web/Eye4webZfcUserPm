@@ -246,7 +246,8 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
             ->leftJoin('r.conversation', 'c')
             ->where('r.to = :to')
             ->andWhere('m.conversation = c')
-            ->andWhere('r.deleted = false')
+            ->andWhere('r.deleted = 0')
+            ->groupBy('r')
             ->orderBy('m.date', 'DESC');
 
         $queryBuilder->setParameter('to', $userId);
@@ -258,8 +259,9 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
                 'queryBuilder' => $queryBuilder
             ]
         );
-        
-        $userReceives = $queryBuilder->getQuery()->getResult();
+
+        $query = $queryBuilder->getQuery();
+        $userReceives = $query->getResult();
 
         $this->getEventManager()->trigger(
             'getUserConversations',

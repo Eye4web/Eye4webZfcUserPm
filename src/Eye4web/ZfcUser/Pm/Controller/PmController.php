@@ -118,7 +118,9 @@ class PmController extends AbstractActionController
             return $viewModel;
         }
 
-        $this->pmService->deleteConversations($prg['collectionIds'], $user);
+        if (isset($prg['collectionIds']) && is_array($prg['collectionIds'])) {
+            $this->pmService->deleteConversations($prg['collectionIds'], $user);
+        }
 
         return $this->redirect()->toRoute('eye4web/zfc-user/pm/list');
     }
