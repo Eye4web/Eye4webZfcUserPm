@@ -180,12 +180,10 @@ class PmController extends AbstractActionController
             return $this->redirect()->toRoute($this->zfcUserOptions->getLoginRedirectRoute());
         }
 
-        $users = $this->pmService->getUsers();
         $form = $this->newConversationForm;
 
         $viewModel = new ViewModel(
             [
-            'users' => $users,
             'form' => $form,
             ]
         );
