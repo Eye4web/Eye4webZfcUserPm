@@ -247,7 +247,6 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
             ->where('r.to = :to')
             ->andWhere('m.conversation = c')
             ->andWhere('r.deleted = 0')
-            ->groupBy('r')
             ->orderBy('m.date', 'DESC');
 
         $queryBuilder->setParameter('to', $userId);
