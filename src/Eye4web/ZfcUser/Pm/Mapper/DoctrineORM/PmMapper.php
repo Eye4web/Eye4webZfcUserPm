@@ -250,7 +250,6 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
             ->where('r.to = :to')
             ->andWhere('m.conversation = c')
             ->andWhere('r.deleted = 0')
-            ->andWhere('r.unread = 1')
             ->orderBy('m.date', 'DESC');
 
         $queryBuilder->setParameter('to', $userId);
