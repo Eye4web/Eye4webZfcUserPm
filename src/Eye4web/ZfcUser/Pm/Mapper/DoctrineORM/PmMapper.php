@@ -170,9 +170,12 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
         );
 
         $repository =  $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
-        $conversationReceive = $repository->findOneBy(['conversation' => $conversation->getId(), 'to' => $user->getId()]);
+        $conversationReceive = $repository->findBy(['conversation' => $conversation->getId(), 'to' => $user->getId()]);
 
-        $conversationReceive->setUnread(false);
+        foreach ($conversationReceive as $receiver) {
+            $receiver->setUnread(false);
+        }
+
         $this->objectManager->flush();
     }
 
@@ -247,6 +250,7 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
             ->where('r.to = :to')
             ->andWhere('m.conversation = c')
             ->andWhere('r.deleted = 0')
+            ->andWhere('r.unread = 1')
             ->orderBy('m.date', 'DESC');
 
         $queryBuilder->setParameter('to', $userId);
