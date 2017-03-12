@@ -242,12 +242,9 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
         $queryBuilder = $this->objectManager->createQueryBuilder();
         $queryBuilder->select('r')
             ->from($this->options->getConversationReceiverEntity(), 'r')
-            ->from($this->options->getMessageEntity(), 'm')
-            ->leftJoin('r.conversation', 'c')
+            ->innerJoin('r.conversation', 'c')
             ->where('r.to = :to')
-            ->andWhere('m.conversation = c')
-            ->andWhere('r.deleted = 0')
-            ->orderBy('m.date', 'DESC');
+            ->andWhere('r.deleted = 0');
 
         $queryBuilder->setParameter('to', $userId);
 
