@@ -105,4 +105,11 @@ interface PmServiceInterface
      * @return ConversationInterface[]
      */
     public function getUnreadConversations(UserInterface $user);
+
+    /**
+     * @param ConversationInterface $conversation
+     * @param array $receivers List of user ids
+     * @return mixed
+     */
+    public function addReceivers(ConversationInterface $conversation, array $receivers);
 }

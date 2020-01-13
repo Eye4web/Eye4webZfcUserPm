@@ -294,22 +294,7 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
 
         $receivers = explode(",", $data['to']);
         $receivers[] = $user->getId(); // we also want the sending user to be a receiver
-        foreach ($receivers as $receiver) {
-            $conversationReceiver = clone $this->getConversationReceiverEntity();
-            // Call __construct to generate a new id
-            $conversationReceiver->__construct();
-            $conversationReceiver->setTo($receiver);
-            $conversationReceiver->setConversation($conversation);
-
-            // The sending user should not have the message marked as unread
-            if ($receiver == $user->getId())
-            {
-                $conversationReceiver->setUnread(false);
-            }
-
-            $this->pmMapper->addReceiver($conversationReceiver);
-        }
-
+        $this->addReceivers($conversation, $receivers);
         $this->newMessage($conversation, $data['message'], $user);
 
         $this->getEventManager()->trigger(
@@ -321,6 +306,42 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
             ]
         );
 
+        return $conversation;
+    }
+
+    /**
+     * @param ConversationInterface $conversation
+     * @param array $receivers List of user ids
+     * @return ConversationInterface
+     */
+    public function addReceivers(ConversationInterface $conversation, array $receivers)
+    {
+        $receivers = array_unique($receivers);
+        
+        $existingReceivers = $this->pmMapper->getReceiversByConversation($conversation);
+        $existingReceiverUserIds = array_map(function(ConversationReceiverInterface $conversationReceiver) {
+            return $conversationReceiver->getTo();
+        }, $existingReceivers);
+        
+        foreach ($receivers as $receiver) {
+            if (in_array($receiver, $existingReceiverUserIds)) {
+                continue;
+            }
+            
+            $conversationReceiver = clone $this->getConversationReceiverEntity();
+            // Call __construct to generate a new id
+            $conversationReceiver->__construct();
+            $conversationReceiver->setTo($receiver);
+            $conversationReceiver->setConversation($conversation);
+
+            // The sending user should not have the message marked as unread
+            if ($receiver == $user->getId()) {
+                $conversationReceiver->setUnread(false);
+            }
+
+            $this->pmMapper->addReceiver($conversationReceiver);
+        }
+        
         return $conversation;
     }
 
