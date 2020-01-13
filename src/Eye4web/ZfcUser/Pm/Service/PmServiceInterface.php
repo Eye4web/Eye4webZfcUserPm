@@ -108,9 +108,9 @@ interface PmServiceInterface
 
     /**
      * @param ConversationInterface $conversation
-     * @param UserInterface $author
+     * @param UserInterface|null $author
      * @param array $receivers List of userIds
      * @return mixed
      */
-    public function addReceivers(ConversationInterface $conversation, UserInterface $author, array $receivers);
+    public function addReceivers(ConversationInterface $conversation, array $receivers, ?UserInterface $author = null);
 }
