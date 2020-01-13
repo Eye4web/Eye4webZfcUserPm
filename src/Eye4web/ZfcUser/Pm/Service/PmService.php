@@ -294,7 +294,7 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
 
         $receivers = explode(",", $data['to']);
         $receivers[] = $user->getId(); // we also want the sending user to be a receiver
-        $this->addReceivers($conversation, $receivers);
+        $this->addReceivers($conversation, $user, $receivers);
         $this->newMessage($conversation, $data['message'], $user);
 
         $this->getEventManager()->trigger(
@@ -311,10 +311,11 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
 
     /**
      * @param ConversationInterface $conversation
-     * @param array $receivers List of user ids
-     * @return ConversationInterface
+     * @param UserInterface $author
+     * @param array $receivers
+     * @return ConversationInterface|mixed
      */
-    public function addReceivers(ConversationInterface $conversation, array $receivers)
+    public function addReceivers(ConversationInterface $conversation, UserInterface $author, array $receivers)
     {
         $receivers = array_unique($receivers);
         
@@ -335,7 +336,7 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
             $conversationReceiver->setConversation($conversation);
 
             // The sending user should not have the message marked as unread
-            if ($receiver == $user->getId()) {
+            if ($receiver == $author->getId()) {
                 $conversationReceiver->setUnread(false);
             }
 
