@@ -367,8 +367,10 @@ class PmMapper implements PmMapperInterface, EventManagerAwareInterface
         );
 
         $repository = $this->objectManager->getRepository($this->options->getConversationReceiverEntity());
-        $conversationReceiver = $repository->findOneBy(['conversation' => $conversationsId, 'to' => $user->getId()]);
-        $conversationReceiver->setDeleted(true);
+        $conversationReceivers = $repository->findBy(['conversation' => $conversationsId, 'to' => $user->getId()]);
+        foreach ($conversationReceivers as $conversationReceiver) {
+            $conversationReceiver->setDeleted(true);
+        }
 
         $this->objectManager->flush();
     }
