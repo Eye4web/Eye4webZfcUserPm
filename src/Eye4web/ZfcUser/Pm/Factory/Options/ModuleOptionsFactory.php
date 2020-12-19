@@ -6,7 +6,7 @@ use Eye4web\ZfcUser\Pm\Options\ModuleOptions;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ModuleOptionsFactory implements FactoryInterface
+class ModuleOptionsFactory implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
      * Create options
@@ -14,7 +14,7 @@ class ModuleOptionsFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ModuleOptions
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(\Interop\Container\ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         $config = $serviceLocator->get('Config');
 

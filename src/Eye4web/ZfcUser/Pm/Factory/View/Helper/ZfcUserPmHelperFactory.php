@@ -6,7 +6,7 @@ use Eye4web\ZfcUser\Pm\View\Helper\ZfcUserPmHelper;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ZfcUserPmHelperFactory implements FactoryInterface
+class ZfcUserPmHelperFactory implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
      * Create service
@@ -14,12 +14,12 @@ class ZfcUserPmHelperFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $helperLocator
      * @return ConfigHelper|mixed
      */
-    public function createService(ServiceLocatorInterface $helperLocator)
+    public function __invoke(\Interop\Container\ContainerInterface $helperLocator, $requestedName, array $options = null)
     {
         /**
          * @var ServiceLocatorInterface $serviceLocator
          */
-        $serviceLocator = $helperLocator->getServiceLocator();
+        $serviceLocator = $helperLocator;
 
         $pmService = $serviceLocator->get('Eye4web\ZfcUser\Pm\Service\PmService');
 

@@ -6,7 +6,7 @@ use Eye4web\ZfcUser\Pm\Service\PmService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class PmServiceFactory implements FactoryInterface
+class PmServiceFactory implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
      * Create mapper
@@ -14,7 +14,7 @@ class PmServiceFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return PmService
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(\Interop\Container\ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         /**
          * @var ModuleOptions $moduleOptions

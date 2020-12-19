@@ -9,7 +9,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use ZfcUser\Options\ModuleOptions as ZfcUserModuleOptions;
 
-class PmMapperFactory implements FactoryInterface
+class PmMapperFactory implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
      * Create mapper
@@ -17,7 +17,7 @@ class PmMapperFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return PmMapper
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(\Interop\Container\ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         /**
          * @var ModuleOptions $moduleOptions
