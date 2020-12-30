@@ -45,7 +45,7 @@ return [
                 'type' => 'Eye4web\Base\Mvc\Router\Http\NamespaceRoute',
                 'child_routes' => [
                     'zfc-user' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => 'Zend\Router\Http\Literal',
                         'options' => [
                             'route'    => '/user',
                             'defaults' => [
@@ -55,14 +55,14 @@ return [
                         'may_terminate' => false,
                         'child_routes' => [
                             'pm' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => 'Zend\Router\Http\Literal',
                                 'options' => [
                                     'route'    => '/pm',
                                 ],
                                 'may_terminate' => false,
                                 'child_routes' => [
                                     'list' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'type' => 'Zend\Router\Http\Segment',
                                         'options' => [
                                             'route'    => '/list[/:page]',
                                             'defaults' => [
@@ -71,7 +71,7 @@ return [
                                         ],
                                     ],
                                     'new-conversation' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'type' => 'Zend\Router\Http\Literal',
                                         'options' => [
                                             'route'    => '/new-conversation',
                                             'defaults' => [
@@ -80,7 +80,7 @@ return [
                                         ],
                                     ],
                                     'read-conversation' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'type' => 'Zend\Router\Http\Segment',
                                         'options' => [
                                             'route'    => '/:conversationId[/:page]',
                                             'defaults' => [
