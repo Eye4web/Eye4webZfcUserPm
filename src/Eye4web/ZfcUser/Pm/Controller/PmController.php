@@ -86,7 +86,7 @@ class PmController extends AbstractActionController
             return $this->redirect()->toRoute($this->zfcUserOptions->getLoginRedirectRoute());
         }
 
-        $user = $this->fcUserAuthentication()->getIdentity();
+        $user = $this->zfcUserAuthentication()->getIdentity();
         $form = $this->deleteConversationsForm;
         $conversations = $this->pmService->getUserConversations($user->getId());
 
