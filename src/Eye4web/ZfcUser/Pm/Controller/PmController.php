@@ -86,7 +86,7 @@ class PmController extends AbstractActionController
             return $this->redirect()->toRoute($this->zfcUserOptions->getLoginRedirectRoute());
         }
 
-        $user = $this->ZfcUserAuthentication()->getIdentity();
+        $user = $this->fcUserAuthentication()->getIdentity();
         $form = $this->deleteConversationsForm;
         $conversations = $this->pmService->getUserConversations($user->getId());
 
@@ -134,7 +134,7 @@ class PmController extends AbstractActionController
         $form = $this->newMessageForm;
         $conversation = $this->pmService->getConversation($this->params('conversationId'));
         $messages = $this->pmService->getMessages($conversation);
-        $user = $this->ZfcUserAuthentication()->getIdentity();
+        $user = $this->zfcUserAuthentication()->getIdentity();
 
         // Paginator
         $paginator = new Paginator(new ArrayAdapter($messages));
