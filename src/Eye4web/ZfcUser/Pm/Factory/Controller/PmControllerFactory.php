@@ -24,7 +24,7 @@ use Eye4web\ZfcUser\Pm\PmService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class PmControllerFactory implements FactoryInterface
+class PmControllerFactory implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
      * Create controller
@@ -32,12 +32,12 @@ class PmControllerFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $controllerManager
      * @return PmController
      */
-    public function createService(ServiceLocatorInterface $controllerManager)
+    public function __invoke(\Psr\Container\ContainerInterface $controllerManager, $requestedName, array $options = null)
     {
         /**
          * @var ServiceLocatorInterface $serviceManager
          */
-        $serviceManager = $controllerManager->getServiceLocator();
+        $serviceManager = $controllerManager;
 
         /**
          * @var PmService $pmService

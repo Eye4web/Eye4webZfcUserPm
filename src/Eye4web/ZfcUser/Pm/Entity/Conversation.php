@@ -18,7 +18,7 @@
 
 namespace Eye4web\ZfcUser\Pm\Entity;
 
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 
 class Conversation implements ConversationInterface
 {

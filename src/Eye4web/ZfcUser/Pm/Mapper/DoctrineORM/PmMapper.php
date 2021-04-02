@@ -18,7 +18,7 @@
 
 namespace Eye4web\ZfcUser\Pm\Mapper\DoctrineORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Eye4web\ZfcUser\Pm\Entity\ConversationInterface;
 use Eye4web\ZfcUser\Pm\Entity\ConversationReceiverInterface;
 use Eye4web\ZfcUser\Pm\Mapper\PmMapperInterface;
