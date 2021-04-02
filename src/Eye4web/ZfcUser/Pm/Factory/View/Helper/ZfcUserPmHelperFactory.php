@@ -14,7 +14,7 @@ class ZfcUserPmHelperFactory implements \Zend\ServiceManager\Factory\FactoryInte
      * @param  ServiceLocatorInterface $helperLocator
      * @return ConfigHelper|mixed
      */
-    public function __invoke(\Interop\Container\ContainerInterface $helperLocator, $requestedName, array $options = null)
+    public function __invoke(\Psr\Container\ContainerInterface $helperLocator, $requestedName, array $options = null)
     {
         /**
          * @var ServiceLocatorInterface $serviceLocator

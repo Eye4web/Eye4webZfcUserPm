@@ -14,7 +14,7 @@ class PmServiceFactory implements \Zend\ServiceManager\Factory\FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return PmService
      */
-    public function __invoke(\Interop\Container\ContainerInterface $serviceLocator, $requestedName, array $options = null)
+    public function __invoke(\Psr\Container\ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         /**
          * @var ModuleOptions $moduleOptions

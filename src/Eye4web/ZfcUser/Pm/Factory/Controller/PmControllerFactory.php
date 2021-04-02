@@ -32,7 +32,7 @@ class PmControllerFactory implements \Zend\ServiceManager\Factory\FactoryInterfa
      * @param  ServiceLocatorInterface $controllerManager
      * @return PmController
      */
-    public function __invoke(\Interop\Container\ContainerInterface $controllerManager, $requestedName, array $options = null)
+    public function __invoke(\Psr\Container\ContainerInterface $controllerManager, $requestedName, array $options = null)
     {
         /**
          * @var ServiceLocatorInterface $serviceManager

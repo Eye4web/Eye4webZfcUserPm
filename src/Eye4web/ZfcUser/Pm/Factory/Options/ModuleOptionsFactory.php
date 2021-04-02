@@ -14,7 +14,7 @@ class ModuleOptionsFactory implements \Zend\ServiceManager\Factory\FactoryInterf
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ModuleOptions
      */
-    public function __invoke(\Interop\Container\ContainerInterface $serviceLocator, $requestedName, array $options = null)
+    public function __invoke(\Psr\Container\ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         $config = $serviceLocator->get('Config');
 
