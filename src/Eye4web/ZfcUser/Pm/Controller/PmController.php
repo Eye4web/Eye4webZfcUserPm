@@ -104,7 +104,7 @@ class PmController extends AbstractActionController
         );
         $viewModel->setTemplate('eye4web/zfc-user/pm/index.phtml');
 
-        $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/list', ['page' => $page]);
+        $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/list');
         $prg = $this->prg($redirectUrl, true);
 
         if ($prg instanceof Response) {
