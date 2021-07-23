@@ -18,7 +18,7 @@
 
 namespace Eye4web\ZfcUser\Pm\Entity;
 
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 
 class ConversationReceiver implements ConversationReceiverInterface
 {
@@ -54,7 +54,7 @@ class ConversationReceiver implements ConversationReceiverInterface
     {
         $this->id = $id;
     }
-    
+
     /**
      * @return bool
      */
