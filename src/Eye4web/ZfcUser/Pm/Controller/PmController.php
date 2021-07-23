@@ -105,7 +105,7 @@ class PmController extends AbstractActionController
         $viewModel->setTemplate('eye4web/zfc-user/pm/index.phtml');
 
         $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/list');
-        $prg = $this->prg($redirectUrl, true);
+        $prg = $this->prg($redirectUrl . "?" . http_build_query($_GET), true);
 
         if ($prg instanceof Response) {
             return $prg;
@@ -154,7 +154,7 @@ class PmController extends AbstractActionController
         $viewModel->setTemplate('eye4web/zfc-user/pm/read-conversation.phtml');
 
         $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/read-conversation', ['conversationId' => $conversation->getId()]);
-        $prg = $this->prg($redirectUrl, true);
+        $prg = $this->prg($redirectUrl . "?" . http_build_query($_GET), true);
 
         if ($prg instanceof Response) {
             return $prg;
@@ -190,7 +190,7 @@ class PmController extends AbstractActionController
         $viewModel->setTemplate('eye4web/zfc-user/pm/new-conversation.phtml');
 
         $redirectUrl = $this->url()->fromRoute('eye4web/zfc-user/pm/new-conversation');
-        $prg = $this->prg($redirectUrl, true);
+        $prg = $this->prg($redirectUrl . "?" . http_build_query($_GET), true);
 
         if ($prg instanceof Response) {
             return $prg;
