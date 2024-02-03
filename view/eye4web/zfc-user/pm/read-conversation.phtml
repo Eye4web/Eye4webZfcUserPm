@@ -24,7 +24,6 @@ foreach ($this->messages as $message) {
 
 echo $this->form()->openTag($form);
 echo $this->formRow($form->get('message'));
-echo $this->formRow($form->get('csrf'));
 echo $this->formRow($form->get('submit'));
 echo $this->form()->closeTag();
 

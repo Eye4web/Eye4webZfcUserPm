@@ -66,18 +66,6 @@ class NewConversationForm extends Form implements InputFilterProviderInterface
 
         $this->add(
             [
-            'type' => 'Zend\Form\Element\Csrf',
-            'name' => 'csrf',
-            'options' => [
-                'csrf_options' => [
-                    'timeout' => 999999999999,
-                ],
-            ],
-            ]
-        );
-
-        $this->add(
-            [
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Button',
             'attributes' => [
