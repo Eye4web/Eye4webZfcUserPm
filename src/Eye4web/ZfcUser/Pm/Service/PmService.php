@@ -301,6 +301,7 @@ class PmService implements PmServiceInterface, EventManagerAwareInterface
             'newConversation',
             $this,
             [
+            'data' => $data,
             'conversation' => $conversation,
             'user' => $user,
             ]
